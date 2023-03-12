@@ -1,13 +1,23 @@
 const express = require('express');
 const UsersRoute = require('./routes/users');
-const MiddlewareReqLogs = require('./middleware/logs');
+const middlewareReqLogs = require('./middleware/logs');
+const port = 4000;
 
 const app = express();
 
-app.use(MiddlewareReqLogs)
-// app.method(path, handler); (routing in express)
+// middleware
+app.use(middlewareReqLogs)
+app.use(express.json()) // izinkan req berupa json
+
+// app.method(path, handler); (method routing in express)
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Halooo'
+  })
+})
+
 app.use('/users', UsersRoute)
 
-app.listen(4000, () => {
-  console.log('server berjalan di port 4000');
+app.listen(port, () => {
+  console.log('server berjalan di port', port);
 })
