@@ -1,3 +1,4 @@
+const dosenModels = require('../models/dosen')
 const { v4: uuidv4 } = require('uuid');
 const uuid = uuidv4();
 
@@ -25,10 +26,11 @@ const createNewDosen = (req, res) => {
   })
 }
 
-const getAllDosen = (req, res) => {
+const getAllDosen = async (req, res) => {
+  const [data] = await dosenModels.getAllDosen()
   res.json({
     message: 'GET all Dosen success!',
-    data: dataDummy
+    data: data
   })
 }
 
