@@ -27,11 +27,18 @@ const createNewDosen = (req, res) => {
 }
 
 const getAllDosen = async (req, res) => {
-  const [data] = await dosenModels.getAllDosen()
-  res.json({
-    message: 'GET all Dosen success!',
-    data: data
-  })
+  try {
+    const [data] = await dosenModels.getAllDosen()
+    res.json({
+      message: 'GET all Dosen success!',
+      data: data
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      serverMessage: error
+    })
+  }
 }
 
 const updateDosen = (req, res) => {
