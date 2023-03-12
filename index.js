@@ -1,8 +1,10 @@
 const express = require('express');
 const UsersRoute = require('./routes/users');
+const MiddlewareReqLogs = require('./middleware/logs');
 
 const app = express();
 
+app.use(MiddlewareReqLogs)
 // app.method(path, handler); (routing in express)
 app.use('/users', UsersRoute)
 
