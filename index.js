@@ -1,5 +1,5 @@
 const express = require('express');
-const UsersRoute = require('./routes/users');
+const UsersRoute = require('./routes/Dosen');
 const middlewareReqLogs = require('./middleware/logs');
 const port = 4000;
 
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   })
 })
 
-app.use('/users', UsersRoute)
+app.use('/dosen', UsersRoute)
 
 app.listen(port, () => {
   console.log('server berjalan di port', port);

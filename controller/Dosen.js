@@ -1,11 +1,14 @@
+const { v4: uuidv4 } = require('uuid');
+const uuid = uuidv4();
+
 const dataDummy = {
-  id: 1,
-  nama: "Fajar Agung",
-  nim: "312010448",
-  kelas: "TI.20.A.3"
+  idDosen: uuid,
+  namaDosen: "Alfiyan",
+  nidn: "12345678",
+  noTelp: "089637524919"
 }
 
-// const getUserById = (req, res) => {
+// const getDosenById = (req, res) => {
 //   const { id } = req.params
 //   console.log(req.body)
 //   res.json({
@@ -14,33 +17,33 @@ const dataDummy = {
 //   })
 // }
 
-const createNewUsers = (req, res) => {
+const createNewDosen = (req, res) => {
   console.log(req.body);
   res.json({
-    message: 'Create new users success!',
+    message: 'Create new Dosen success!',
     data: req.body
   })
 }
 
-const getAllUsers = (req, res) => {
+const getAllDosen = (req, res) => {
   res.json({
-    message: 'GET all users success!',
+    message: 'GET all Dosen success!',
     data: dataDummy
   })
 }
 
-const updateUser = (req, res) => {
+const updateDosen = (req, res) => {
   const { id } = req.params
-  console.log('id user:', id)
+  console.log('id Dosen:', id)
   res.json({
     message: 'UPDATE success',
     data: req.body
   })
 }
 
-const deleteUser = (req, res) => {
+const deleteDosen = (req, res) => {
   const { id } = req.params
-  console.log('id user:', id)
+  console.log('id Dosen:', id)
   res.json({
     message: 'DELETE success',
     data: {
@@ -53,8 +56,8 @@ const deleteUser = (req, res) => {
 }
 
 module.exports = {
-  getAllUsers,
-  createNewUsers,
-  updateUser,
-  deleteUser
+  getAllDosen,
+  createNewDosen,
+  updateDosen,
+  deleteDosen
 }
