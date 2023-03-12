@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const UsersRoute = require('./routes/dosen');
 const middlewareReqLogs = require('./middleware/logs');
-const port = 4000;
+const PORT = process.env.PORT || 4000
 
 const app = express();
 
@@ -18,6 +19,6 @@ app.use(express.json()) // izinkan req berupa json
 
 app.use('/dosen', UsersRoute)
 
-app.listen(port, () => {
-  console.log('server berjalan di port', port);
+app.listen(PORT, () => {
+  console.log(`server berjalan di port ${PORT}`);
 })
