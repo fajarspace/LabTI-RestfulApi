@@ -18,12 +18,22 @@ const dataDummy = {
 //   })
 // }
 
-const createNewDosen = (req, res) => {
-  console.log(req.body);
-  res.json({
-    message: 'Create new Dosen success!',
-    data: req.body
-  })
+const createNewDosen = async (req, res) => {
+  const { body } = req
+  try {
+    await dosenModels.createNewDosen(body)
+    res.json({
+      message: 'Create new Dosen success!',
+      data: body
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'server error',
+      serverMessage: error
+    })
+  }
+
+
 }
 
 const getAllDosen = async (req, res) => {

@@ -1,5 +1,5 @@
 const express = require('express')
-const dosenController = require('../controller/Dosen')
+const dosenController = require('../controller/dosen')
 const router = express.Router()
 
 // CREATE - POST
