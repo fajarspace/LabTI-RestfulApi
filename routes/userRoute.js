@@ -4,7 +4,7 @@ import { getUser, getUserById, createUser, updateUser, deleteUser } from "../con
 const router = express.Router()
 
 // CREATE - POST
-router.post('/jadwal', createUser)
+router.post('/users', createUser)
 
 // READ - GET
 router.get('/users', getUser)

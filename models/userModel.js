@@ -11,7 +11,7 @@ const userModel = db.define('users', {
       notEmpty: true
     }
   },
-  name: {
+  nama: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
