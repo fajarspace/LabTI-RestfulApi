@@ -17,6 +17,14 @@ const jadwalModel = db.define('jadwal', {
     allowNull: false
   },
   tanggal: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  waktu: {
+    type: DataTypes.TIME,
+    allowNull: false
+  },
+  praktikum: {
     type: DataTypes.STRING,
     allowNull: false
   },

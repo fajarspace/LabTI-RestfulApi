@@ -11,6 +11,7 @@ dotenv.config();
 
 const app = express();
 
+// panggil kuchiyose
 // (async () => {
 //   await db.sync();
 // })();
