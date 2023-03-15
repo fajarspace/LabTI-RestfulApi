@@ -6,6 +6,7 @@ import session from 'express-session';
 import db from "./config/Database.js";
 import userRoute from './routes/userRoute.js';
 import jadwalRoute from "./routes/jadwalRoute.js";
+import authRoute from "./routes/authRoute.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ const app = express();
 //   await db.sync();
 // })();
 
+// middleware
 app.use(session({
   secret: process.env.SESS_SECRET,
   resave: false,
@@ -24,15 +26,16 @@ app.use(session({
     secure: 'auto' // auto detek http or https
   }
 }))
-
-// middleware
 app.use(cors({
   credentials: true,
   origin: 'http://localhost:3000'
 }));
 app.use(express.json()); // izinkan req berupa json
+
+// Route
 app.use(jadwalRoute);
 app.use(userRoute);
+app.use(authRoute);
 
 // app.method(path, handler); (method routing in express)
 // app.get('/', (req, res) => {
@@ -41,7 +44,6 @@ app.use(userRoute);
 //   })
 // })
 
-
 app.listen(process.env.PORT, () => {
-  console.log('Server up and running...');
+  console.log(`Server berjalan di Port ${process.env.PORT}`);
 });

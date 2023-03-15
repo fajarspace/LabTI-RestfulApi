@@ -12,18 +12,18 @@ export const Login = async (req, res) => {
   if (!match) return res.status(400).json({ msg: "Wrong Password" });
   req.session.userId = user.uuid;
   const uuid = user.uuid;
-  const name = user.name;
+  const nama = user.name;
   const email = user.email;
   const role = user.role;
-  res.status(200).json({ uuid, name, email, role });
+  res.status(200).json({ uuid, nama, email, role });
 }
 
-export const Me = async (req, res) => {
+export const Profile = async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).json({ msg: "Mohon login ke akun Anda!" });
   }
   const user = await userModel.findOne({
-    attributes: ['uuid', 'name', 'email', 'role'],
+    attributes: ['uuid', 'nama', 'email', 'role'],
     where: {
       uuid: req.session.userId
     }

@@ -1,5 +1,5 @@
 {
-  "name": "rest-api",
+  "name": "elab-pelitabangsa",
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
@@ -15,7 +15,6 @@
     "express-session": "^1.17.3",
     "mysql2": "^3.2.0",
     "nodemon": "^2.0.21",
-    "sequelize": "^6.29.3",
-    "uuid": "^9.0.0"
+    "sequelize": "^6.29.3"
   }
 }
