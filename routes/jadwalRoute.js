@@ -16,6 +16,6 @@ router.get('/jadwal/:id', getJadwalById)
 router.patch('/jadwal/:id', updateJadwal)
 
 // DELETE
-router.delete('/:id', deleteJadwal)
+router.delete('/jadwal/:id', deleteJadwal)
 
 export default router;
