@@ -1,20 +1,21 @@
-const express = require('express')
-const dosenController = require('../controller/dosen')
+import express from "express";
+import { getUser, getUserById, createUser, updateUser, deleteUser } from "../controller/Users";
+
 const router = express.Router()
 
 // CREATE - POST
-router.post('/', dosenController.createNewDosen)
+router.post('/jadwal', createUser)
 
 // READ - GET
-router.get('/', dosenController.getAllDosen)
+router.get('/users', getUser)
 
 // READ - GET by id
-// router.get('/:id', dosenController.getDosenById)
+router.get('/users/:id', getUserById)
 
 // UPDATE - PATCH
-router.patch('/:id', dosenController.updateDosen)
+router.patch('/users/:id', updateUser)
 
-// UPDATE - PATCH
-router.delete('/:id', dosenController.deleteDosen)
+// DELETE
+router.delete('/:id', deleteUser)
 
-module.exports = router;
+export default router;

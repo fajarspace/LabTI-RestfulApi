@@ -3,7 +3,11 @@ import express from 'express'
 import cors from 'cors'
 import session from 'express-session'
 
+import UserRoute from './routes/userRoute'
+import jadwalRoute from "./routes/jadwalRoute";
+
 dotenv.config()
+
 const PORT = process.env.PORT || 4000
 const app = express();
 
