@@ -1,4 +1,4 @@
-import Jadwal from "../models/jadwalModel";
+import jadwalModel from "../models/jadwalModel.js";
 
 export const getJadwal = (req, res) => {
 

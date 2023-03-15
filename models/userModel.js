@@ -1,17 +1,17 @@
 import { Sequelize } from 'sequelize'
-const db = require('../config/database')
+import db from "../config/Database.js";
 
-const { DataTypes } = Sequelize
-const Users = db.define('users', {
-  id: {
+const { DataTypes } = Sequelize;
+const userModel = db.define('users', {
+  uuid: {
     type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
     allowNull: false,
     validate: {
       notEmpty: true
-    },
+    }
   },
-  nama: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
@@ -31,19 +31,19 @@ const Users = db.define('users', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
+      notEmpty: true
     }
   },
   role: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
+      notEmpty: true
     }
   }
 }, {
   freezeTableName: true
-})
+});
 
-export default Users;
+export default userModel;
 
