@@ -1,8 +1,9 @@
 import { Sequelize } from 'sequelize'
+import Users from "./userModel";
 const db = require('../config/database')
 
 const { DataTypes } = Sequelize
-const Users = db.define('users', {
+const Jadwal = db.define('jadwal', {
   id: {
     type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
@@ -11,31 +12,16 @@ const Users = db.define('users', {
       notEmpty: true
     },
   },
-  nama: {
+  dosen: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      len: [3, 100]
-    }
+    allowNull: false
   },
-  email: {
+  tanggal: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      isEmail: true
-    }
+    allowNull: false
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    }
-  },
-  role: {
-    type: DataTypes.STRING,
+  userID: {
+    type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -45,5 +31,8 @@ const Users = db.define('users', {
   freezeTableName: true
 })
 
-export default Users;
+Users.hasMany(Jadwal)
+Jadwal.belongTo(Users, { foreignKey: 'UserId' })
+
+export default Jadwal;
 
