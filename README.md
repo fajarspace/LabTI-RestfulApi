@@ -1,4 +1,4 @@
-## eLab pelitabangsa
+# eLab pelitabangsa
 
 ### Build with Node.js and ❤️
 
@@ -112,3 +112,51 @@ Test with Postman or Rest Client
       "msg": "Hapus berhasil!"
     }
 
+<hr>
+
+## Login users
+
+### Request
+
+`POST /login/`
+
+    http://localhost:4000/login
+
+### Response
+
+    {
+      "uuid": "0173bf2a-86b0-4be5-b445-eb8b2805875b",
+      "email": "asisten@gmail.com",
+      "role": "admin"
+    }
+
+## Profile users
+
+### Request
+
+`GET /profile/`
+
+    http://localhost:4000/profile
+
+### Response
+
+    {
+      "uuid": "0173bf2a-86b0-4be5-b445-eb8b2805875b",
+      "nama": "Asisten",
+      "email": "asisten@gmail.com",
+      "role": "admin"
+    }
+
+## Logout
+
+### Request
+
+`DELETE /logout/`
+
+    http://localhost:4000/logout
+
+### Response
+
+    {
+      "msg": "Anda telah logout"
+    }
