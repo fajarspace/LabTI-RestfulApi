@@ -4,7 +4,7 @@
 
 Test with Postman or Rest Client
 
-### Examples : 
+# Documentation API : 
 
 ## GET all users
 
@@ -159,4 +159,145 @@ Test with Postman or Rest Client
 
     {
       "msg": "Anda telah logout"
+    }
+
+<hr>
+
+## GET all jadwal
+
+### Request
+
+`GET /jadwal/`
+
+    http://localhost:4000/jadwal
+
+### Response
+
+      [
+        {
+          "uuid": "ecedadec-0495-478b-a504-c7c10bc78dc9",
+          "dosen": "Najamuddin dwi, S.Kom, M.Kom",
+          "asisten1": "Fajar Agung",
+          "asisten2": "M. Romdon",
+          "tanggal": "2023-03-23",
+          "jam": "09:30",
+          "kelas": "TI.20.A.3",
+          "praktikum": "Data Mining",
+          "user": {
+              "nama": "Asisten",
+              "email": "asisten@gmail.com"
+          }
+        },
+        {
+          "uuid": "ad8c8edb-38f4-4c9d-93c0-3a8546f21b80",
+          "dosen": "Alfiyan, S.Kom",
+          "asisten1": "Veno Setyoaji",
+          "asisten2": "Maulana Muhammad",
+          "tanggal": "2023-03-23",
+          "jam": "13:00",
+          "kelas": "TI.20.A.1",
+          "praktikum": "Data Mining",
+          "user": {
+              "nama": "Asisten",
+              "email": "asisten@gmail.com"
+          }
+        },
+        {
+          "uuid": "3c7e457a-d621-49f5-a2a3-2a917428cb6e",
+          "dosen": "Agung Nugroho, S.Kom, M.Kom",
+          "asisten1": "Veno Setyoaji",
+          "asisten2": "Maulana Muhammad",
+          "tanggal": "2023-03-30",
+          "jam": "02:48",
+          "kelas": "TI.20.A.1",
+          "praktikum": "Bahasa Pemrograman",
+          "user": {
+              "nama": "Asisten",
+              "email": "asisten@gmail.com"
+            }
+        }
+      ]
+
+## GET jadwal by Id
+
+### Request
+
+`GET /jadwal/:id`
+
+    http://localhost:4000/jadwal/ecedadec-0495-478b-a504-c7c10bc78dc9
+
+### Response
+
+    {
+      "uuid": "ecedadec-0495-478b-a504-c7c10bc78dc9",
+      "dosen": "Najamuddin dwi, S.Kom, M.Kom",
+      "asisten1": "Fajar Agung",
+      "asisten2": "M. Romdon",
+      "tanggal": "2023-03-23",
+      "jam": "09:30",
+      "kelas": "TI.20.A.3",
+      "praktikum": "Data Mining",
+      "user": {
+          "nama": "Asisten",
+          "email": "asisten@gmail.com"
+      }
+    }
+
+## Create new jadwal
+
+### Request
+
+`POST /jadwal/`
+
+    http://localhost:4000/jadwal
+
+    {
+      "dosen":"najamuddin, S.Kom, M.Kom",
+      "asisten1":"fajar",
+      "asisten2":"veno",
+      "tanggal":"20-03-2023",
+      "jam":"08:00",
+      "kelas":"TI.20.A.1",
+      "praktikum":"data mining"
+    }
+
+### Response
+
+    {
+      "msg": "Jadwal berhasil dibuat!"
+    }
+
+## Update jadwal
+
+### Request
+
+`PATCH /jadwal/`
+
+    http://localhost:4000/jadwal/ad8c8edb-38f4-4c9d-93c0-3a8546f21b80
+
+### Response
+
+    {
+      "uuid": "ad8c8edb-38f4-4c9d-93c0-3a8546f21b80",
+      "dosen": "Alfiyan, S.Kom",
+      "asisten1": "Veno Setyoaji",
+      "asisten2": "Maulana Muhammad",
+      "tanggal": "2023-03-23",
+      "jam": "13:00",
+      "kelas": "TI.20.A.1",
+      "praktikum": "Data Mining",
+    }
+
+## Delete jadwal
+
+### Request
+
+`DELETE /jadwal/`
+
+    http://localhost:4000/jadwal/ad8c8edb-38f4-4c9d-93c0-3a8546f21b80
+
+### Response
+
+    {
+      "msg": "Jadwal berhasil di hapus!"
     }
