@@ -7,8 +7,11 @@ const router = express.Router()
 // CREATE - POST
 router.post('/jadwal', verifyUser, createJadwal)
 
-// READ - GET
-router.get('/jadwal', verifyUser, getJadwal)
+// READ - GET with auth
+// router.get('/jadwal', verifyUser, getJadwal)
+
+// READ - GET without Auth
+router.get('/jadwal', getJadwal)
 
 // READ - GET by id
 router.get('/jadwal/:id', verifyUser, getJadwalById)

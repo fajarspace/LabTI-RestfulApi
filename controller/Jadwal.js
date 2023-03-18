@@ -3,28 +3,41 @@ import userModel from "../models/UserModel.js";
 import { Op } from "sequelize";
 
 export const getJadwal = async (req, res) => {
+  // try {
+  //   let response;
+  //   if (req.role === "admin") {
+  //     response = await jadwalModel.findAll({
+  //       attributes: ['uuid', 'dosen', 'tanggal', 'waktu', 'praktikum'],
+  //       include: [{
+  //         model: userModel,
+  //         attributes: ['nama', 'email']
+  //       }]
+  //     });
+  //   } else {
+  //     response = await jadwalModel.findAll({
+  //       attributes: ['uuid', 'dosen', 'tanggal', 'waktu', 'praktikum'],
+  //       where: {
+  //         userId: req.userId
+  //       },
+  //       include: [{
+  //         model: userModel,
+  //         attributes: ['nama', 'email']
+  //       }]
+  //     });
+  //   }
+  //   res.status(200).json(response);
+  // } catch (error) {
+  //   res.status(500).json({ msg: error.message });
+  // }
+
   try {
-    let response;
-    if (req.role === "admin") {
-      response = await jadwalModel.findAll({
-        attributes: ['uuid', 'dosen', 'tanggal', 'waktu', 'praktikum'],
-        include: [{
-          model: userModel,
-          attributes: ['nama', 'email']
-        }]
-      });
-    } else {
-      response = await jadwalModel.findAll({
-        attributes: ['uuid', 'dosen', 'tanggal', 'waktu', 'praktikum'],
-        where: {
-          userId: req.userId
-        },
-        include: [{
-          model: userModel,
-          attributes: ['nama', 'email']
-        }]
-      });
-    }
+    const response = await jadwalModel.findAll({
+      attributes: ['uuid', 'dosen', 'tanggal', 'waktu', 'praktikum'],
+      include: [{
+        model: userModel,
+        attributes: ['nama', 'email']
+      }]
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -102,7 +115,7 @@ export const updateJadwal = async (req, res) => {
       });
     } else {
       if (req.userId !== jadwal.userId) return res.status(403).json({ msg: "Akses terlarang" });
-      await jadwalModel.update({ name, price }, {
+      await jadwalModel.update({ dosen, tanggal, waktu, praktikum }, {
         where: {
           [Op.and]: [{ id: jadwal.id }, { userId: req.userId }]
         }
