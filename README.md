@@ -32,20 +32,83 @@ Test with Postman or Rest Client
     ]
 
 
-```
-GET all users by ID
-```
+## GET users By Id
 
-`GET /users/0173bf2a-86b0-4be5-b445-eb8b2805875b`
+### Request
 
-Create new users
+`GET /users/:id`
 
-`POST /users/`
+    http://localhost:4000/users/0173bf2a-86b0-4be5-b445-eb8b2805875b
 
-Update users
+### Response
 
-`PATCH /users/0173bf2a-86b0-4be5-b445-eb8b2805875b`
+    [
+      {
+          "uuid": "0173bf2a-86b0-4be5-b445-eb8b2805875b",
+          "nama": "Asisten",
+          "email": "asisten@gmail.com",
+          "role": "admin"
+      }
+    ]
 
-Delete users
 
-`DELETE /users/0173bf2a-86b0-4be5-b445-eb8b2805875b`
+## Create new users
+
+### Request
+
+`POST /users/:id`
+
+    http://localhost:4000/users/
+
+    {
+      "nama":"fajar",
+      "email":"fajar@gmail.com",
+      "password":"fajar1232",
+      "konfirmPassword":"fajar1232",
+      "role":"admin"
+    }
+
+### Response
+
+    {
+      "msg": "Register Berhasil"
+    }
+
+
+## Update users
+
+### Request
+
+`PATCH /users/:id`
+
+    http://localhost:4000/users/0173bf2a-86b0-4be5-b445-eb8b2805875b
+
+    {
+      "nama":"Fajar Agung",
+      "email":"fajar.agung@gmail.com",
+      "password":"fajar1232",
+      "konfirmPassword":"fajar1232",
+      "role":"admin"
+    }
+
+### Response
+
+    {
+      "msg": "Update berhasil!"
+    }
+
+
+## Delete users
+
+### Request
+
+`DELETE /users/:id`
+
+    http://localhost:4000/users/0173bf2a-86b0-4be5-b445-eb8b2805875b
+
+### Response
+
+    {
+      "msg": "Hapus berhasil!"
+    }
+
