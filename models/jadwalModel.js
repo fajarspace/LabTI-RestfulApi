@@ -17,11 +17,11 @@ const jadwalModel = db.define('jadwal', {
     allowNull: false
   },
   tanggal: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false
   },
   waktu: {
-    type: DataTypes.TIME,
+    type: DataTypes.STRING,
     allowNull: false
   },
   praktikum: {
