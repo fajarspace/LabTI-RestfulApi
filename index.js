@@ -4,6 +4,7 @@ import cors from 'cors';
 import session from 'express-session';
 
 import db from "./config/Database.js";
+import SequelizeStore from "connect-session-sequelize";
 import userRoute from './routes/userRoute.js';
 import jadwalRoute from "./routes/jadwalRoute.js";
 import authRoute from "./routes/authRoute.js";
@@ -11,6 +12,11 @@ import authRoute from "./routes/authRoute.js";
 dotenv.config();
 
 const app = express();
+
+const sessionStore = SequelizeStore(session.Store);
+const store = new sessionStore({
+  db: db
+});
 
 // panggil kuchiyose
 // (async () => {
@@ -22,6 +28,7 @@ app.use(session({
   secret: process.env.SESS_SECRET,
   resave: false,
   saveUninitialized: true,
+  store: store,
   cookie: {
     secure: 'auto' // auto detek http or https
   }
@@ -43,6 +50,8 @@ app.use(authRoute);
 //     message: 'Halooo'
 //   })
 // })
+
+// store.sync(); // add field session
 
 app.listen(process.env.PORT, () => {
   console.log(`Server berjalan di Port ${process.env.PORT}`);

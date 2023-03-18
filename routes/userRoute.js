@@ -1,21 +1,22 @@
 import express from "express";
 import { getUser, getUserById, createUser, updateUser, deleteUser } from "../controller/Users.js";
+import { verifyUser, adminOnly } from "../middleware/AuthUser.js";
 
 const router = express.Router()
 
 // CREATE - POST
-router.post('/users', createUser)
+router.post('/users', verifyUser, adminOnly, createUser)
 
 // READ - GET
-router.get('/users', getUser)
+router.get('/users', verifyUser, adminOnly, getUser)
 
 // READ - GET by id
-router.get('/users/:id', getUserById)
+router.get('/users/:id', verifyUser, adminOnly, getUserById)
 
 // UPDATE - PATCH
-router.patch('/users/:id', updateUser)
+router.patch('/users/:id', verifyUser, adminOnly, updateUser)
 
 // DELETE
-router.delete('/users/:id', deleteUser)
+router.delete('/users/:id', verifyUser, adminOnly, deleteUser)
 
 export default router;
