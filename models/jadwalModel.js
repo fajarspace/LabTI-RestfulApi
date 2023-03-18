@@ -16,11 +16,23 @@ const jadwalModel = db.define('jadwal', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  asisten1: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  asisten2: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   tanggal: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  waktu: {
+  jam: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  kelas: {
     type: DataTypes.STRING,
     allowNull: false
   },
