@@ -6,11 +6,33 @@ Test with Postman or Rest Client
 
 ### Examples : 
 
-GET all users
+## GET all users
+
+### Request
+
+`GET /users/`
+
+    http://localhost:4000/users/
+
+### Response
+
+    [
+      {
+          "uuid": "0173bf2a-86b0-4be5-b445-eb8b2805875b",
+          "nama": "Asisten",
+          "email": "asisten@gmail.com",
+          "role": "admin"
+      },
+      {
+          "uuid": "44a78fd6-41bc-438f-885a-0de9291f3788",
+          "nama": "Dummy",
+          "email": "dummy@gmail.com",
+          "role": "user"
+      }
+    ]
+
 
 ```
-GET /users
-
 GET all users by ID
 ```
 
