@@ -24,7 +24,7 @@ const jadwalModel = db.define('jadwal', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  tanggal: {
+  hari: {
     type: DataTypes.STRING,
     allowNull: false
   },
