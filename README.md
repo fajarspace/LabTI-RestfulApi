@@ -4,7 +4,7 @@
 
 Test with Postman or Rest Client
 
-# Documentation API : 
+# API Documentation : 
 
 ## GET all users
 
