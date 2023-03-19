@@ -1,6 +1,6 @@
 import express from "express";
 import { getJadwal, getJadwalById, createJadwal, updateJadwal, deleteJadwal } from "../controller/Jadwal.js";
-import { verifyUser, adminOnly } from "../middleware/authUser.js";
+import { verifyUser, adminOnly } from "../middleware/authuser.js";
 
 const router = express.Router()
 
