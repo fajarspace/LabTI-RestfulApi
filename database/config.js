@@ -2,8 +2,8 @@ import { Sequelize } from "sequelize";
 import dotenv from 'dotenv';
 dotenv.config();
 
-const db = new Sequelize(process.env.CLEVERCLOUD_MYSQL_DB, process.env.CLEVERCLOUD_MYSQL_USER, process.env.CLEVERCLOUD_MYSQL_PASSWORD, {
-  host: process.env.CLEVERCLOUD_MYSQL_HOST,
+const db = new Sequelize(process.env.MYSQL_ADDON_DB, process.env.MYSQL_ADDON_USER, process.env.MYSQL_ADDON_PASSWORD, {
+  host: process.env.MYSQL_ADDON_HOST,
   dialect: "mysql"
 });
 
