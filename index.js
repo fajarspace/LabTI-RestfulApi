@@ -35,6 +35,7 @@ app.use(session({
 }))
 app.use(cors({
   credentials: true,
+  origin: 'http://elab-pelitabangsa.netlify.app'
 }));
 app.use(express.json()); // izinkan req berupa json
 
