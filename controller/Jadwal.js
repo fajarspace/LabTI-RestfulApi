@@ -7,7 +7,7 @@ export const getJadwal = async (req, res) => {
   //   let response;
   //   if (req.role === "admin") {
   //     response = await jadwalModel.findAll({
-  //       attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'tanggal', 'jam', 'kelas', 'praktikum'],
+  //       attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
   //       include: [{
   //         model: userModel,
   //         attributes: ['nama', 'email']
@@ -15,7 +15,7 @@ export const getJadwal = async (req, res) => {
   //     });
   //   } else {
   //     response = await jadwalModel.findAll({
-  //       attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'tanggal', 'jam', 'kelas', 'praktikum'],
+  //       attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
   //       where: {
   //         userId: req.userId
   //       },
@@ -32,7 +32,7 @@ export const getJadwal = async (req, res) => {
 
   try {
     const response = await jadwalModel.findAll({
-      attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'tanggal', 'jam', 'kelas', 'praktikum'],
+      attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
       include: [{
         model: userModel,
         attributes: ['nama', 'email']
@@ -55,7 +55,7 @@ export const getJadwalById = async (req, res) => {
     let response;
     if (req.role === "admin") {
       response = await jadwalModel.findOne({
-        attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'tanggal', 'jam', 'kelas', 'praktikum'],
+        attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
         where: {
           id: jadwal.id
         },
@@ -66,7 +66,7 @@ export const getJadwalById = async (req, res) => {
       });
     } else {
       response = await jadwalModel.findOne({
-        attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'tanggal', 'jam', 'kelas', 'praktikum'],
+        attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
         where: {
           [Op.and]: [{ id: jadwalModel.id }, { userId: req.userId }]
         },
@@ -83,13 +83,13 @@ export const getJadwalById = async (req, res) => {
 }
 
 export const createJadwal = async (req, res) => {
-  const { dosen, asisten1, asisten2, tanggal, jam, kelas, praktikum } = req.body;
+  const { dosen, asisten1, asisten2, hari, jam, kelas, praktikum } = req.body;
   try {
     await jadwalModel.create({
       dosen: dosen,
       asisten1: asisten1,
       asisten2: asisten2,
-      tanggal: tanggal,
+      hari: hari,
       jam: jam,
       kelas: kelas,
       praktikum: praktikum,
@@ -109,16 +109,16 @@ export const updateJadwal = async (req, res) => {
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const { dosen, asisten1, asisten2, tanggal, jam, kelas, praktikum } = req.body;
+    const { dosen, asisten1, asisten2, hari, jam, kelas, praktikum } = req.body;
     if (req.role === "admin") {
-      await jadwalModel.update({ dosen, asisten1, asisten2, tanggal, jam, kelas, praktikum }, {
+      await jadwalModel.update({ dosen, asisten1, asisten2, hari, jam, kelas, praktikum }, {
         where: {
           id: jadwal.id
         }
       });
     } else {
       if (req.userId !== jadwal.userId) return res.status(403).json({ msg: "Akses terlarang" });
-      await jadwalModel.update({ dosen, asisten1, asisten2, tanggal, jam, kelas, praktikum }, {
+      await jadwalModel.update({ dosen, asisten1, asisten2, hari, jam, kelas, praktikum }, {
         where: {
           [Op.and]: [{ id: jadwal.id }, { userId: req.userId }]
         }
@@ -139,7 +139,7 @@ export const deleteJadwal = async (req, res) => {
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const { dosen, asisten1, asisten2, tanggal, jam, kelas, praktikum } = req.body;
+    const { dosen, asisten1, asisten2, hari, jam, kelas, praktikum } = req.body;
     if (req.role === "admin") {
       await jadwalModel.destroy({
         where: {
