@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
 
-import db from "./config/Database.js";
+import db from "./database/config.js";
 import SequelizeStore from "connect-session-sequelize";
 import userRoute from './routes/userRoute.js';
 import jadwalRoute from "./routes/jadwalRoute.js";
