@@ -24,15 +24,15 @@ const store = new sessionStore({
 // })();
 
 // middleware
-// app.use(session({
-//   secret: process.env.SESS_SECRET,
-//   resave: false,
-//   saveUninitialized: true,
-//   store: store,
-//   cookie: {
-//     secure: 'auto' // auto detek http or https
-//   }
-// }))
+app.use(session({
+  secret: process.env.SESS_SECRET,
+  // resave: false,
+  // saveUninitialized: true,
+  // store: store,
+  // cookie: {
+  //   secure: 'auto' // auto detek http or https
+  // }
+}))
 app.use(cors({
   credentials: true,
   origin: 'https://elab-pelitabangsa.netlify.app'
