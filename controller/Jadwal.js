@@ -1,5 +1,5 @@
-import jadwalModel from "../models/jadwalModel.js";
-import userModel from "../models/UserModel.js";
+import jadwalModel from "../model/jadwalModel.js";
+import userModel from "../model/userModel.js";
 import { Op } from "sequelize";
 
 export const getJadwal = async (req, res) => {
