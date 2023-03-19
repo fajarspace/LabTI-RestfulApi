@@ -19,9 +19,9 @@ const store = new sessionStore({
 });
 
 // panggil kuchiyose
-(async () => {
-  await db.sync();
-})();
+// (async () => {
+//   await db.sync();
+// })();
 
 // middleware
 app.use(session({
@@ -51,7 +51,7 @@ app.use(authRoute);
 //   })
 // })
 
-store.sync(); // add field session
+// store.sync(); // add field session
 
 app.listen(process.env.PORT, () => {
   console.log(`Server berjalan di Port ${process.env.PORT}`);
