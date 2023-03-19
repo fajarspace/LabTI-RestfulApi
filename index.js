@@ -33,10 +33,10 @@ app.use(session({
     secure: 'auto' // auto detek http or https
   }
 }))
-app.use(cors({
-  credentials: true,
-  origin: 'https://elab-pelitabangsa.netlify.app/'
-}));
+// app.use(cors({
+//   credentials: true,
+//   origin: 'https://elab-pelitabangsa.netlify.app/'
+// }));
 app.use(express.json()); // izinkan req berupa json
 
 // Route
