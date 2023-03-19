@@ -12,7 +12,7 @@ export const Login = async (req, res) => {
   if (!match) return res.status(400).json({ msg: "Wrong Password" });
   req.session.userId = user.uuid;
   const uuid = user.uuid;
-  const nama = user.name;
+  const nama = user.nama;
   const email = user.email;
   const role = user.role;
   res.status(200).json({ uuid, nama, email, role });
