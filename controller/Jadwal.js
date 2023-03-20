@@ -80,7 +80,7 @@ export const createJadwal = async (req, res) => {
       jam: jam,
       kelas: kelas,
       praktikum: praktikum,
-      // userId: req.userId
+      userId: req.userId
     });
     res.status(201).json({ msg: "Jadwal berhasil dibuat!" });
   } catch (error) {
