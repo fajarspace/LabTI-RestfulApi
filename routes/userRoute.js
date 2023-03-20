@@ -1,6 +1,6 @@
 import express from "express";
 import { getUser, getUserById, createUser, updateUser, deleteUser } from "../controller/Users.js";
-import { verifyUser, adminOnly } from "../auth/authuser.js";
+// import { verifyUser, adminOnly } from "../auth/authuser.js";
 
 const router = express.Router()
 
@@ -8,15 +8,15 @@ const router = express.Router()
 router.post('/users', createUser)
 
 // READ - GET
-router.get('/users', verifyUser, adminOnly, getUser)
+router.get('/users', getUser)
 
 // READ - GET by id
-router.get('/users/:id', verifyUser, adminOnly, getUserById)
+router.get('/users/:id', getUserById)
 
 // UPDATE - PATCH
-router.patch('/users/:id', verifyUser, adminOnly, updateUser)
+router.patch('/users/:id', updateUser)
 
 // DELETE
-router.delete('/users/:id', verifyUser, adminOnly, deleteUser)
+router.delete('/users/:id', deleteUser)
 
 export default router;
