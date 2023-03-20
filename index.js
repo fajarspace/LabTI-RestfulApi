@@ -7,7 +7,7 @@ import db from "./database/config.js";
 import SequelizeStore from "connect-session-sequelize";
 import userRoute from './routes/userRoute.js';
 import jadwalRoute from "./routes/jadwalRoute.js";
-// import authRoute from "./routes/authRoute.js";
+import authRoute from "./routes/authRoute.js";
 
 dotenv.config();
 
@@ -42,7 +42,7 @@ app.use(express.json()); // izinkan req berupa json
 // Route
 app.use(jadwalRoute);
 app.use(userRoute);
-// app.use(authRoute);
+app.use(authRoute);
 
 // app.method(path, handler); (method routing in express)
 // app.get('/', (req, res) => {
