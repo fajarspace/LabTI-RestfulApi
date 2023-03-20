@@ -7,7 +7,7 @@ import db from "./database/config.js";
 import SequelizeStore from "connect-session-sequelize";
 import userRoute from './routes/userRoute.js';
 import jadwalRoute from "./routes/jadwalRoute.js";
-import authRoute from "./routes/authRoute.js";
+// import authRoute from "./routes/authRoute.js";
 
 dotenv.config();
 
