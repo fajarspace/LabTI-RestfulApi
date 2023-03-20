@@ -52,34 +52,21 @@ export const getJadwalById = async (req, res) => {
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    let response;
-    if (req.role === "admin") {
-      response = await jadwalModel.findOne({
-        attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
-        where: {
-          id: jadwal.id
-        },
-        include: [{
-          model: userModel,
-          attributes: ['nama', 'email']
-        }]
-      });
-    } else {
-      response = await jadwalModel.findOne({
-        attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
-        where: {
-          [Op.and]: [{ id: jadwalModel.id }, { userId: req.userId }]
-        },
-        include: [{
-          model: userModel,
-          attributes: ['nama', 'email']
-        }]
-      });
-    }
+    const response = await jadwalModel.findOne({
+      attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
+      where: {
+        id: jadwal.id
+      },
+      include: [{
+        model: userModel,
+        attributes: ['nama', 'email']
+      }]
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
+  
 }
 
 export const createJadwal = async (req, res) => {
@@ -110,26 +97,17 @@ export const updateJadwal = async (req, res) => {
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
     const { dosen, asisten1, asisten2, hari, jam, kelas, praktikum } = req.body;
-    if (req.role === "admin") {
-      await jadwalModel.update({ dosen, asisten1, asisten2, hari, jam, kelas, praktikum }, {
-        where: {
-          id: jadwal.id
-        }
-      });
-    } else {
-      if (req.userId !== jadwal.userId) return res.status(403).json({ msg: "Akses terlarang" });
-      await jadwalModel.update({ dosen, asisten1, asisten2, hari, jam, kelas, praktikum }, {
-        where: {
-          [Op.and]: [{ id: jadwal.id }, { userId: req.userId }]
-        }
-      });
-    }
+    await jadwalModel.update({ dosen, asisten1, asisten2, hari, jam, kelas, praktikum }, {
+      where: {
+        id: jadwal.id
+      }
+    });
     res.status(200).json({ msg: "Update Jadwal berhasil!" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
+};
 
-}
 
 export const deleteJadwal = async (req, res) => {
   try {

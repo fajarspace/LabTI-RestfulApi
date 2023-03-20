@@ -42,7 +42,7 @@ app.use(express.json()); // izinkan req berupa json
 // Route
 app.use(jadwalRoute);
 app.use(userRoute);
-app.use(authRoute);
+// app.use(authRoute);
 
 // app.method(path, handler); (method routing in express)
 // app.get('/', (req, res) => {
