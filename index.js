@@ -40,9 +40,9 @@ app.use(cors({
 app.use(express.json()); // izinkan req berupa json
 
 // Route
-app.use(jadwalRoute);
-app.use(userRoute);
 app.use(authRoute);
+app.use(userRoute);
+app.use(jadwalRoute);
 
 // app.method(path, handler); (method routing in express)
 // app.get('/', (req, res) => {
