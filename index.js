@@ -34,8 +34,7 @@ app.use(session({
   }
 }))
 app.use(cors({
-  credentials: true,
-  origin: ['https://labti.netlify.app', 'http://localhost:3000']
+  origin: ['https://labti.netlify.app', 'https://e-lab-pelitabangsa.vercel.app', 'http://localhost:3000']
 }));
 app.use(express.json()); // izinkan req berupa json
 
