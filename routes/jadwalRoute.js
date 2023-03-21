@@ -5,7 +5,7 @@ import { verifyUser, adminOnly } from "../auth/authuser.js";
 const router = express.Router()
 
 // CREATE - POST
-router.post('/jadwal', createJadwal)
+router.post('/jadwal', verifyUser, createJadwal)
 
 // READ - GET with auth
 // router.get('/jadwal', verifyUser, getJadwal)
