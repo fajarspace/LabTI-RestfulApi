@@ -1,6 +1,6 @@
 import express from "express";
 import { getJadwal, getJadwalById, createJadwal, updateJadwal, deleteJadwal } from "../controller/Jadwal.js";
-// import { verifyUser, adminOnly } from "../auth/authuser.js";
+import { verifyUser, adminOnly } from "../auth/authuser.js";
 
 const router = express.Router()
 
@@ -14,12 +14,12 @@ router.post('/jadwal', createJadwal)
 router.get('/jadwal', getJadwal)
 
 // READ - GET by id
-router.get('/jadwal/:id', getJadwalById)
+router.get('/jadwal/:id', verifyUser, getJadwalById)
 
 // UPDATE - PATCH
-router.patch('/jadwal/:id', updateJadwal)
+router.patch('/jadwal/:id', verifyUser, updateJadwal)
 
 // DELETE
-router.delete('/jadwal/:id', deleteJadwal)
+router.delete('/jadwal/:id', verifyUser, deleteJadwal)
 
 export default router;
