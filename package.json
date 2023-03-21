@@ -4,6 +4,7 @@
   "type": "module",
   "main": "index.js",
   "license": "MIT",
+  "proxy":"https://labti.netlify.app",
   "scripts": {
     "start": "node .",
     "dev": "nodemon ."
