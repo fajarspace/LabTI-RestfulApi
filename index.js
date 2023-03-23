@@ -29,6 +29,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   store: store,
+  SameSite: None,
   cookie: {
     secure: 'auto' // auto detek http or https
   }
