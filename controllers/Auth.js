@@ -1,8 +1,8 @@
-import userModel from "../models/UserModel.js";
+import UserModel from "../models/UserModel.js";
 import argon2 from "argon2";
 
 export const Login = async (req, res) => {
-  const user = await userModel.findOne({
+  const user = await UserModel.findOne({
     where: {
       email: req.body.email
     }
@@ -23,7 +23,7 @@ export const Profile = async (req, res) => {
     return res.status(401).json({ msg: "Mohon login ke akun Anda!" });
   }
   console.log(req.session.userId)
-  const user = await userModel.findOne({
+  const user = await UserModel.findOne({
     attributes: ['uuid', 'nama', 'email', 'role'],
     where: {
       uuid: req.session.userId

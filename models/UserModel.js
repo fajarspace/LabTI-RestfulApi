@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 import db from "../config/Database.js";
 
 const { DataTypes } = Sequelize;
-const userModel = db.define('users', {
+const UserModel = db.define('users', {
   uuid: {
     type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
@@ -45,5 +45,5 @@ const userModel = db.define('users', {
   freezeTableName: true
 });
 
-export default userModel;
+export default UserModel;
 

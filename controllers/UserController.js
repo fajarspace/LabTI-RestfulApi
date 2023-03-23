@@ -1,9 +1,9 @@
-import userModel from "../models/UserModel.js";
+import UserModel from "../models/UserModel.js";
 import argon2 from "argon2";
 
 export const getUser = async (req, res) => {
   try {
-    const response = await userModel.findAll({
+    const response = await UserModel.findAll({
       attributes: ['uuid', 'nama', 'email', 'role'] // tampilkan yang perlu saja
     });
     res.status(200).json(response);
@@ -13,7 +13,7 @@ export const getUser = async (req, res) => {
 }
 export const getUserById = async (req, res) => {
   try {
-    const response = await userModel.findOne({
+    const response = await UserModel.findOne({
       attributes: ['uuid', 'nama', 'email', 'role'], // tampilkan yang perlu saja
       where: {
         uuid: req.params.id
@@ -30,7 +30,7 @@ export const createUser = async (req, res) => {
   if (password !== konfirmPassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok" });
   const hashPassword = await argon2.hash(password);
   try {
-    await userModel.create({
+    await UserModel.create({
       nama: nama,
       email: email,
       password: hashPassword,
@@ -43,7 +43,7 @@ export const createUser = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
-  const user = await userModel.findOne({
+  const user = await UserModel.findOne({
     where: {
       uuid: req.params.id
     }
@@ -58,7 +58,7 @@ export const updateUser = async (req, res) => {
   }
   if (password !== konfirmPassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok" });
   try {
-    await userModel.update({
+    await UserModel.update({
       nama: nama,
       email: email,
       password: hashPassword,
@@ -75,14 +75,14 @@ export const updateUser = async (req, res) => {
 }
 
 export const deleteUser = async (req, res) => {
-  const user = await userModel.findOne({
+  const user = await UserModel.findOne({
     where: {
       uuid: req.params.id
     }
   });
   if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
   try {
-    await userModel.destroy({
+    await UserModel.destroy({
       where: {
         id: user.id
       }

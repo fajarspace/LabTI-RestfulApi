@@ -1,10 +1,10 @@
 import {Sequelize} from "sequelize";
 import db from "../config/Database.js";
-import userModel from "./UserModel.js";
+import UserModel from "./UserModel.js";
 
 const {DataTypes} = Sequelize;
 
-const jadwalModel = db.define('jadwal',{
+const JadwalModel = db.define('jadwal',{
     uuid: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
@@ -31,10 +31,10 @@ const jadwalModel = db.define('jadwal',{
     freezeTableName:true
 });
 
-userModel.hasMany(jadwalModel);
-jadwalModel.belongsTo(userModel, { foreignKey: 'userId' })
+UserModel.hasMany(JadwalModel);
+JadwalModel.belongsTo(UserModel, { foreignKey: 'userId' })
 // (async()=>{
 //     await db.sync();
 // })();
-export default jadwalModel;
+export default JadwalModel;
 
