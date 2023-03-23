@@ -28,12 +28,13 @@ const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
   db: db
 });
-
+app.set("trust proxy", 1);
 app.use(session({
   secret: process.env.SESS_SECRET,
   resave: false,
   saveUninitialized: true,
   store: store,
+  proxy: true, // Required for Heroku & Digital Ocean (regarding X-Forwarded-For)
   name: 'MyCoolWebAppCookieName', // This needs to be unique per-host.
   cookie: {
     secure: "auto", // required for cookies to work on AUTO
