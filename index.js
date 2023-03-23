@@ -37,13 +37,13 @@ app.use(session({
   name: 'MyCoolWebAppCookieName', // This needs to be unique per-host.
   cookie: {
     secure: "auto", // required for cookies to work on AUTO
-    // httpOnly: true,
-    // sameSite: 'none'
+    httpOnly: false,
+    sameSite: 'none'
   }
 }))
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: 'https://labti.netlify.app'
 }));
 
 // app.use(cookieParser());
