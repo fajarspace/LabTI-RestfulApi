@@ -1,5 +1,7 @@
-import jadwalModel from "../model/jadwalModel.js";
-import userModel from "../model/userModel.js";
+import Jadwal from "../models/JadwalModel.js";
+
+import jadwalModel from "../models/JadwalModel.js";
+import userModel from "../models/UserModel.js";
 import { Op } from "sequelize";
 
 export const getJadwal = async (req, res) => {
@@ -32,7 +34,7 @@ export const getJadwal = async (req, res) => {
 
   try {
     const response = await jadwalModel.findAll({
-      attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
+      attributes: ['uuid', 'kelas', 'hari', 'waktu', 'dosen', 'asisten1', 'asisten2', 'praktikum'],
       include: [{
         model: userModel,
         attributes: ['nama', 'email']
@@ -53,7 +55,7 @@ export const getJadwalById = async (req, res) => {
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
     const response = await jadwalModel.findOne({
-      attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
+      attributes: ['uuid', 'kelas', 'hari', 'waktu', 'dosen', 'asisten1', 'asisten2', 'praktikum'],
       where: {
         id: jadwal.id
       },
@@ -70,15 +72,15 @@ export const getJadwalById = async (req, res) => {
 }
 
 export const createJadwal = async (req, res) => {
-  const { dosen, asisten1, asisten2, hari, jam, kelas, praktikum } = req.body;
+  const { kelas, hari, waktu, dosen, asisten1, asisten2, praktikum } = req.body;
   try {
     await jadwalModel.create({
+      kelas: kelas,
+      hari: hari,
+      waktu: waktu,
       dosen: dosen,
       asisten1: asisten1,
       asisten2: asisten2,
-      hari: hari,
-      jam: jam,
-      kelas: kelas,
       praktikum: praktikum,
       userId: req.userId
     });
@@ -96,8 +98,8 @@ export const updateJadwal = async (req, res) => {
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const { dosen, asisten1, asisten2, hari, jam, kelas, praktikum } = req.body;
-    await jadwalModel.update({ dosen, asisten1, asisten2, hari, jam, kelas, praktikum }, {
+    const { kelas, hari, waktu, dosen, asisten1, asisten2, praktikum } = req.body;
+    await jadwalModel.update({ kelas, hari, waktu, dosen, asisten1, asisten2, praktikum }, {
       where: {
         id: jadwal.id
       }
@@ -117,7 +119,7 @@ export const deleteJadwal = async (req, res) => {
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const { dosen, asisten1, asisten2, hari, jam, kelas, praktikum } = req.body;
+    const { kelas, hari, waktu, dosen, asisten1, asisten2, praktikum } = req.body;
     if (req.role === "admin") {
       await jadwalModel.destroy({
         where: {
@@ -138,3 +140,62 @@ export const deleteJadwal = async (req, res) => {
   }
 }
 
+
+
+
+// export const getJadwal = async(req, res) =>{
+//     try {
+//         const response = await Jadwal.findAll();
+//         res.status(200).json(response);
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+
+// export const getJadwalById = async(req, res) =>{
+//     try {
+//         const response = await Jadwal.findOne({
+//             where:{
+//                 id: req.params.id
+//             }
+//         });
+//         res.status(200).json(response);
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+
+// export const createJadwal = async(req, res) =>{
+//     try {
+//         await Jadwal.create(req.body);
+//         res.status(201).json({msg: "Jadwal Created"});
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+
+// export const updateJadwal = async(req, res) =>{
+//     try {
+//         await Jadwal.update(req.body,{
+//             where:{
+//                 id: req.params.id
+//             }
+//         });
+//         res.status(200).json({msg: "Jadwal Updated"});
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+
+// export const deleteJadwal = async(req, res) =>{
+//     try {
+//         await Jadwal.destroy({
+//             where:{
+//                 id: req.params.id
+//             }
+//         });
+//         res.status(200).json({msg: "Jadwal Deleted"});
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }

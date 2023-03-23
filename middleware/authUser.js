@@ -1,4 +1,4 @@
-import userModel from "../model/userModel.js";
+import userModel from "../models/userModel.js";
 
 export const verifyUser = async (req, res, next) => {
   if (!req.session.userId) {

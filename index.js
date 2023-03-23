@@ -1,63 +1,59 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv"
+import cookieParser from "cookie-parser";
 import session from 'express-session';
-
-import db from "./database/config.js";
 import SequelizeStore from "connect-session-sequelize";
-import userRoute from './routes/userRoute.js';
-import jadwalRoute from "./routes/jadwalRoute.js";
-import authRoute from "./routes/authRoute.js";
+
+import db from "./config/Database.js";
+import AuthRoute from "./routeS/AuthRoute.js";
+import JadwalRoute from "./routes/JadwalRoute.js";
+import UserRoute from "./routes/UserRoute.js";
 
 dotenv.config();
-
 const app = express();
 
+// (async()=>{
+//     await db.sync();
+// })();
+
+// try {
+//   await db.authenticate();
+//   console.log('Database Connected...');
+//   await User.sync()
+// } catch (error) {
+//   console.error(error);
+// }
 const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
   db: db
 });
 
-// panggil kuchiyose
-// (async () => {
-//   await db.sync();
-// })();
-
-app.set("trust proxy", 1);
-// middleware
 app.use(session({
   secret: process.env.SESS_SECRET,
   resave: false,
   saveUninitialized: true,
   store: store,
-  proxy: true, // Required for Heroku & Digital Ocean (regarding X-Forwarded-For)
   name: 'MyCoolWebAppCookieName', // This needs to be unique per-host.
   cookie: {
-    secure: true, // required for cookies to work on HTTPS
-    httpOnly: false,
-    sameSite: 'none'
+    secure: "auto", // required for cookies to work on AUTO
+    // httpOnly: true,
+    // sameSite: 'none'
   }
 }))
 app.use(cors({
     credentials: true,
-    origin: 'https://labti.netlify.app'
+    origin: 'http://localhost:3000'
 }));
-app.use(express.json()); // izinkan req berupa json
+
+// app.use(cookieParser());
+app.use(express.json());
 
 // Route
-app.use(authRoute);
-app.use(userRoute);
-app.use(jadwalRoute);
-
-// app.method(path, handler); (method routing in express)
-// app.get('/', (req, res) => {
-//   res.json({
-//     message: 'Halooo'
-//   })
-// })
+app.use(AuthRoute);
+app.use(UserRoute);
+app.use(JadwalRoute);
 
 // store.sync(); // add field session
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server berjalan di Port ${process.env.PORT}`);
-});
+app.listen(process.env.PORT, ()=> console.log(`Server berjalan di port '${process.env.PORT}'`));
