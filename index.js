@@ -13,9 +13,9 @@ import userRoute from "./routes/userRoute.js";
 dotenv.config();
 const app = express();
 
-// (async()=>{
-//     await db.sync();
-// })();
+(async()=>{
+    await db.sync();
+})();
 
 // try {
 //   await db.authenticate();
@@ -55,6 +55,6 @@ app.use(authRoute);
 app.use(userRoute);
 app.use(jadwalRoute);
 
-// store.sync(); // add field session
+store.sync(); // add field session
 
 app.listen(process.env.PORT, ()=> console.log(`Server berjalan di port '${process.env.PORT}'`));
