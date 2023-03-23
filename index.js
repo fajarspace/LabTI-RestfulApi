@@ -6,9 +6,9 @@ import session from 'express-session';
 import SequelizeStore from "connect-session-sequelize";
 
 import db from "./config/Database.js";
-import AuthRoute from "./routes/AuthRoute.js";
-import JadwalRoute from "./routes/JadwalRoute.js";
-import UserRoute from "./routes/UserRoute.js";
+import authRoute from "./routes/authRoute.js";
+import jadwalRoute from "./routes/jadwalRoute.js";
+import userRoute from "./routes/userRoute.js";
 
 dotenv.config();
 const app = express();
@@ -50,9 +50,9 @@ app.use(cors({
 app.use(express.json());
 
 // Route
-app.use(AuthRoute);
-app.use(UserRoute);
-app.use(JadwalRoute);
+app.use(authRoute);
+app.use(userRoute);
+app.use(jadwalRoute);
 
 // store.sync(); // add field session
 
