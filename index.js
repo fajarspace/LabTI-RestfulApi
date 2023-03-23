@@ -6,7 +6,7 @@ import session from 'express-session';
 import SequelizeStore from "connect-session-sequelize";
 
 import db from "./config/Database.js";
-import AuthRoute from "./routeS/AuthRoute.js";
+import AuthRoute from "./routes/AuthRoute.js";
 import JadwalRoute from "./routes/JadwalRoute.js";
 import UserRoute from "./routes/UserRoute.js";
 
