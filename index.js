@@ -47,7 +47,7 @@ app.use(cors({
     origin: ['https://elab-pelitabangsa.netlify.app', 'http://localhost:3000']
 }));
 
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(express.json());
 
 // Route
