@@ -5,7 +5,7 @@ import { verifyUser, adminOnly } from "../middleware/authUser.js";
 const router = express.Router()
 
 // CREATE - POST
-router.post('/users', verifyUser, adminOnly, createUser)
+router.post('/users', createUser)
 
 // READ - GET
 router.get('/users', verifyUser, adminOnly, getUser)
