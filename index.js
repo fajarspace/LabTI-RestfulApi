@@ -23,15 +23,19 @@ const store = new sessionStore({
 //   await db.sync();
 // })();
 
+app.set("trust proxy", 1);
 // middleware
 app.use(session({
   secret: process.env.SESS_SECRET,
   resave: false,
   saveUninitialized: true,
   store: store,
-  SameSite: None,
+  proxy: true, // Required for Heroku & Digital Ocean (regarding X-Forwarded-For)
+  name: 'MyCoolWebAppCookieName', // This needs to be unique per-host.
   cookie: {
-    secure: 'auto' // auto detek http or https
+    secure: true, // required for cookies to work on HTTPS
+    httpOnly: false,
+    sameSite: 'none'
   }
 }))
 app.use(cors({
