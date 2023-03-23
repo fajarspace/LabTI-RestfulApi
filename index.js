@@ -33,11 +33,7 @@ app.use(session({
     secure: 'auto' // auto detek http or https
   }
 }))
-app.use(cors({
-  credentials: true,
-  origin: ['https://labti.netlify.app', 'http://localhost:3000']
-}));
-app.set('proxy', 1)
+app.use(cors());
 app.use(express.json()); // izinkan req berupa json
 
 // Route
