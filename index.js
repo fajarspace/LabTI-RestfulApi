@@ -9,6 +9,8 @@ import db from "./config/Database.js";
 import authRoute from "./routes/authRoute.js";
 import jadwalRoute from "./routes/jadwalRoute.js";
 import userRoute from "./routes/userRoute.js";
+// import JadwalIndustriModel from "./models/JadwalIndustriModel.js";
+// import JadwalLingkunganModel from "./models/JadwalLingkunganModel.js";
 
 dotenv.config();
 const app = express();
@@ -20,7 +22,7 @@ const app = express();
 // try {
 //   await db.authenticate();
 //   console.log('Database Connected...');
-//   await User.sync()
+//   await JadwalLingkunganModel.sync()
 // } catch (error) {
 //   console.error(error);
 // }
@@ -38,13 +40,13 @@ app.use(session({
   name: 'MyCoolWebAppCookieName', // This needs to be unique per-host.
   cookie: {
     secure: 'auto', // required for cookies to work on AUTO
-    httpOnly: false,
-    sameSite: 'none'
+    // httpOnly: false,
+    // sameSite: 'none'
   }
 }))
 app.use(cors({
     credentials: true,
-    origin: ['https://elab-pelitabangsa.netlify.app', 'http://localhost:3000']
+    origin: process.env.ORIGIN
 }));
 
 app.use(cookieParser());
@@ -54,6 +56,8 @@ app.use(express.json());
 app.use(authRoute);
 app.use(userRoute);
 app.use(jadwalRoute);
+
+
 
 // store.sync(); // add field session
 

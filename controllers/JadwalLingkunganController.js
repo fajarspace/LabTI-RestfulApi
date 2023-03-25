@@ -1,12 +1,12 @@
-import JadwalModel from "../models/JadwalModel.js";
+import JadwalLingkunganModel from "../models/JadwalLingkunganModel.js";
 import UserModel from "../models/UserModel.js";
 import { Op } from "sequelize";
 
-export const getJadwal = async (req, res) => {
+export const getJadwalTL = async (req, res) => {
   // try {
   //   let response;
   //   if (req.role === "admin") {
-  //     response = await JadwalModel.findAll({
+  //     response = await JadwalLingkunganModel.findAll({
   //       attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
   //       include: [{
   //         model: UserModel,
@@ -14,7 +14,7 @@ export const getJadwal = async (req, res) => {
   //       }]
   //     });
   //   } else {
-  //     response = await JadwalModel.findAll({
+  //     response = await JadwalLingkunganModel.findAll({
   //       attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
   //       where: {
   //         userId: req.userId
@@ -31,8 +31,8 @@ export const getJadwal = async (req, res) => {
   // }
 
   try {
-    const response = await JadwalModel.findAll({
-      attributes: ['uuid', 'kelas', 'hari', 'waktu', 'dosen', 'asisten1', 'asisten2', 'praktikum'],
+    const response = await JadwalLingkunganModel.findAll({
+      attributes: ['uuid', 'programStudi', 'kelas', 'hari', 'waktu', 'ruang', 'dosen', 'asisten1', 'asisten2', 'praktikum'],
       include: [{
         model: UserModel,
         attributes: ['nama', 'email']
@@ -44,16 +44,16 @@ export const getJadwal = async (req, res) => {
   }
 }
 
-export const getJadwalById = async (req, res) => {
+export const getJadwalTLById = async (req, res) => {
   try {
-    const jadwal = await JadwalModel.findOne({
+    const jadwal = await JadwalLingkunganModel.findOne({
       where: {
         uuid: req.params.id
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const response = await JadwalModel.findOne({
-      attributes: ['uuid', 'kelas', 'hari', 'waktu', 'dosen', 'asisten1', 'asisten2', 'praktikum'],
+    const response = await JadwalLingkunganModel.findOne({
+      attributes: ['uuid', 'programStudi', 'kelas', 'hari', 'waktu', 'ruang', 'dosen', 'asisten1', 'asisten2', 'praktikum'],
       where: {
         id: jadwal.id
       },
@@ -65,17 +65,18 @@ export const getJadwalById = async (req, res) => {
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
-  }
-  
+  } 
 }
 
-export const createJadwal = async (req, res) => {
-  const { kelas, hari, waktu, dosen, asisten1, asisten2, praktikum } = req.body;
+export const createJadwalTL = async (req, res) => {
+  const { programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum } = req.body;
   try {
-    await JadwalModel.create({
+    await JadwalLingkunganModel.create({
+      programStudi: programStudi,
       kelas: kelas,
       hari: hari,
       waktu: waktu,
+      ruang: ruang,
       dosen: dosen,
       asisten1: asisten1,
       asisten2: asisten2,
@@ -88,16 +89,16 @@ export const createJadwal = async (req, res) => {
   }
 }
 
-export const updateJadwal = async (req, res) => {
+export const updateJadwalTL = async (req, res) => {
   try {
-    const jadwal = await JadwalModel.findOne({
+    const jadwal = await JadwalLingkunganModel.findOne({
       where: {
         uuid: req.params.id
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const { kelas, hari, waktu, dosen, asisten1, asisten2, praktikum } = req.body;
-    await JadwalModel.update({ kelas, hari, waktu, dosen, asisten1, asisten2, praktikum }, {
+    const { programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum } = req.body;
+    await JadwalLingkunganModel.update({ programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum }, {
       where: {
         id: jadwal.id
       }
@@ -109,24 +110,24 @@ export const updateJadwal = async (req, res) => {
 };
 
 
-export const deleteJadwal = async (req, res) => {
+export const deleteJadwalTL = async (req, res) => {
   try {
-    const jadwal = await JadwalModel.findOne({
+    const jadwal = await JadwalLingkunganModel.findOne({
       where: {
         uuid: req.params.id
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const { kelas, hari, waktu, dosen, asisten1, asisten2, praktikum } = req.body;
+    const { programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum } = req.body;
     if (req.role === "admin") {
-      await JadwalModel.destroy({
+      await JadwalLingkunganModel.destroy({
         where: {
           id: jadwal.id
         }
       });
     } else {
       if (req.userId !== jadwal.userId) return res.status(403).json({ msg: "Akses terlarang" });
-      await JadwalModel.destroy({
+      await JadwalLingkunganModel.destroy({
         where: {
           [Op.and]: [{ id: jadwal.id }, { userId: req.userId }]
         }
@@ -141,7 +142,7 @@ export const deleteJadwal = async (req, res) => {
 
 
 
-// export const getJadwal = async(req, res) =>{
+// export const getJadwalTL = async(req, res) =>{
 //     try {
 //         const response = await Jadwal.findAll();
 //         res.status(200).json(response);
@@ -150,7 +151,7 @@ export const deleteJadwal = async (req, res) => {
 //     }
 // }
 
-// export const getJadwalById = async(req, res) =>{
+// export const getJadwalTLById = async(req, res) =>{
 //     try {
 //         const response = await Jadwal.findOne({
 //             where:{
@@ -163,7 +164,7 @@ export const deleteJadwal = async (req, res) => {
 //     }
 // }
 
-// export const createJadwal = async(req, res) =>{
+// export const createJadwalTL = async(req, res) =>{
 //     try {
 //         await Jadwal.create(req.body);
 //         res.status(201).json({msg: "Jadwal Created"});
@@ -172,7 +173,7 @@ export const deleteJadwal = async (req, res) => {
 //     }
 // }
 
-// export const updateJadwal = async(req, res) =>{
+// export const updateJadwalTL = async(req, res) =>{
 //     try {
 //         await Jadwal.update(req.body,{
 //             where:{
@@ -185,7 +186,7 @@ export const deleteJadwal = async (req, res) => {
 //     }
 // }
 
-// export const deleteJadwal = async(req, res) =>{
+// export const deleteJadwalTL = async(req, res) =>{
 //     try {
 //         await Jadwal.destroy({
 //             where:{
