@@ -45,8 +45,8 @@ app.use(session({
   }
 }))
 app.use(cors({
-    credentials: true,
-    origin: process.env.ORIGIN
+  credentials: true,
+  origin: process.env.ORIGIN
 }));
 
 app.use(cookieParser());
@@ -61,4 +61,4 @@ app.use(jadwalRoute);
 
 // store.sync(); // add field session
 
-app.listen(process.env.PORT, ()=> console.log(`Server berjalan di port '${process.env.PORT}'`));
+app.listen(process.env.PORT, () => console.log(`Server berjalan di port '${process.env.PORT}'`));

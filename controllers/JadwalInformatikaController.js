@@ -44,6 +44,48 @@ export const getJadwalTif = async (req, res) => {
   }
 }
 
+export const sortirJadwalTifById = async (req, res) => {
+  try {
+    const { programStudi, praktikum } = req.query;
+
+    const whereClause = {};
+    if (programStudi) {
+      whereClause.programStudi = { [Op.like]: `%${programStudi}%` };
+    }
+    if (praktikum) {
+      whereClause.praktikum = { [Op.like]: `%${praktikum}%` };
+    }
+
+    const response = await JadwalInformatikaModel.findAll({
+      attributes: [
+        'uuid',
+        'programStudi',
+        'kelas',
+        'hari',
+        'waktu',
+        'ruang',
+        'dosen',
+        'asisten1',
+        'asisten2',
+        'praktikum',
+      ],
+      include: [
+        {
+          model: UserModel,
+          attributes: ['nama', 'email'],
+        },
+      ],
+      where: whereClause,
+      order: [['programStudi', 'ASC'], ['kelas', 'ASC']],
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+
+}
+
 export const getJadwalTifById = async (req, res) => {
   try {
     const jadwal = await JadwalInformatikaModel.findOne({
@@ -65,7 +107,7 @@ export const getJadwalTifById = async (req, res) => {
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
-  } 
+  }
 }
 
 export const createJadwalTif = async (req, res) => {
