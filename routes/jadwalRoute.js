@@ -1,5 +1,5 @@
 import express from "express";
-import { getJadwalTif, sortirJadwalTifById, getJadwalTifById, createJadwalTif, updateJadwalTif, deleteJadwalTif } from "../controllers/JadwalInformatikaController.js";
+import { getJadwalTif, searchJadwalTI, getJadwalTifById, createJadwalTif, updateJadwalTif, deleteJadwalTif } from "../controllers/JadwalInformatikaController.js";
 import { getJadwalTin, getJadwalTinById, createJadwalTin, updateJadwalTin, deleteJadwalTin } from "../controllers/JadwalIndustriController.js";
 import { getJadwalTL, getJadwalTLById, createJadwalTL, updateJadwalTL, deleteJadwalTL } from "../controllers/JadwalLingkunganController.js";
 import { verifyUser, adminOnly } from "../middleware/authUser.js";
@@ -11,7 +11,7 @@ const router = express.Router()
 router.post('/jadwal/tif', verifyUser, createJadwalTif)
 
 // SORTIR / SEARCH
-router.get('/jadwal', sortirJadwalTifById)
+router.get('/jadwal', searchJadwalTI)
 
 // READ - GET with auth
 // router.get('/jadwal', verifyUser, getJadwalTif)

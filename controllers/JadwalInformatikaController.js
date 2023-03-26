@@ -44,7 +44,7 @@ export const getJadwalTif = async (req, res) => {
   }
 }
 
-export const sortirJadwalTifById = async (req, res) => {
+export const searchJadwalTI = async (req, res) => {
   try {
     const { programStudi, praktikum } = req.query;
 
