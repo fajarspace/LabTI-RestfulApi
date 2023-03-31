@@ -65,7 +65,7 @@ export const getJadwalTLById = async (req, res) => {
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
-  } 
+  }
 }
 
 export const createJadwalTL = async (req, res) => {

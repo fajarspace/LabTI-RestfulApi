@@ -4,7 +4,7 @@ import UserModel from "./UserModel.js";
 
 const { DataTypes } = Sequelize;
 
-const JadwalInformatikaModel = db.define('jadwalinformatika', {
+const JadwalModel = db.define('jadwal', {
   uuid: {
     type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
@@ -47,10 +47,10 @@ const JadwalInformatikaModel = db.define('jadwalinformatika', {
   freezeTableName: true
 });
 
-UserModel.hasMany(JadwalInformatikaModel);
-JadwalInformatikaModel.belongsTo(UserModel, { foreignKey: 'userId' })
+UserModel.hasMany(JadwalModel);
+JadwalModel.belongsTo(UserModel, { foreignKey: 'userId' })
 // (async()=>{
 //     await db.sync();
 // })();
-export default JadwalInformatikaModel;
+export default JadwalModel;
 

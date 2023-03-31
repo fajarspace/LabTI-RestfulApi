@@ -1,4 +1,4 @@
-import JadwalInformatikaModel from "../models/JadwalInformatikaModel.js";
+import JadwalModel from "../models/JadwalModel.js";
 import UserModel from "../models/UserModel.js";
 import { Op } from "sequelize";
 
@@ -6,7 +6,7 @@ export const getJadwalTif = async (req, res) => {
   // try {
   //   let response;
   //   if (req.role === "admin") {
-  //     response = await JadwalInformatikaModel.findAll({
+  //     response = await JadwalModel.findAll({
   //       attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
   //       include: [{
   //         model: UserModel,
@@ -14,7 +14,7 @@ export const getJadwalTif = async (req, res) => {
   //       }]
   //     });
   //   } else {
-  //     response = await JadwalInformatikaModel.findAll({
+  //     response = await JadwalModel.findAll({
   //       attributes: ['uuid', 'dosen', 'asisten1', 'asisten2', 'hari', 'jam', 'kelas', 'praktikum'],
   //       where: {
   //         userId: req.userId
@@ -31,7 +31,7 @@ export const getJadwalTif = async (req, res) => {
   // }
 
   try {
-    const response = await JadwalInformatikaModel.findAll({
+    const response = await JadwalModel.findAll({
       attributes: ['uuid', 'programStudi', 'kelas', 'hari', 'waktu', 'ruang', 'dosen', 'asisten1', 'asisten2', 'praktikum'],
       include: [{
         model: UserModel,
@@ -56,7 +56,7 @@ export const searchJadwalTI = async (req, res) => {
       whereClause.praktikum = { [Op.like]: `%${praktikum}%` };
     }
 
-    const response = await JadwalInformatikaModel.findAll({
+    const response = await JadwalModel.findAll({
       attributes: [
         'uuid',
         'programStudi',
@@ -88,13 +88,13 @@ export const searchJadwalTI = async (req, res) => {
 
 export const getJadwalTifById = async (req, res) => {
   try {
-    const jadwal = await JadwalInformatikaModel.findOne({
+    const jadwal = await JadwalModel.findOne({
       where: {
         uuid: req.params.id
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const response = await JadwalInformatikaModel.findOne({
+    const response = await JadwalModel.findOne({
       attributes: ['uuid', 'programStudi', 'kelas', 'hari', 'waktu', 'ruang', 'dosen', 'asisten1', 'asisten2', 'praktikum'],
       where: {
         id: jadwal.id
@@ -113,7 +113,7 @@ export const getJadwalTifById = async (req, res) => {
 export const createJadwalTif = async (req, res) => {
   const { programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum } = req.body;
   try {
-    await JadwalInformatikaModel.create({
+    await JadwalModel.create({
       programStudi: programStudi,
       kelas: kelas,
       hari: hari,
@@ -133,14 +133,14 @@ export const createJadwalTif = async (req, res) => {
 
 export const updateJadwalTif = async (req, res) => {
   try {
-    const jadwal = await JadwalInformatikaModel.findOne({
+    const jadwal = await JadwalModel.findOne({
       where: {
         uuid: req.params.id
       }
     });
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
     const { programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum } = req.body;
-    await JadwalInformatikaModel.update({ programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum }, {
+    await JadwalModel.update({ programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum }, {
       where: {
         id: jadwal.id
       }
@@ -154,7 +154,7 @@ export const updateJadwalTif = async (req, res) => {
 
 export const deleteJadwalTif = async (req, res) => {
   try {
-    const jadwal = await JadwalInformatikaModel.findOne({
+    const jadwal = await JadwalModel.findOne({
       where: {
         uuid: req.params.id
       }
@@ -162,14 +162,14 @@ export const deleteJadwalTif = async (req, res) => {
     if (!jadwal) return res.status(404).json({ msg: "Data tidak ditemukan" });
     const { programStudi, kelas, hari, waktu, ruang, dosen, asisten1, asisten2, praktikum } = req.body;
     if (req.role === "admin") {
-      await JadwalInformatikaModel.destroy({
+      await JadwalModel.destroy({
         where: {
           id: jadwal.id
         }
       });
     } else {
       if (req.userId !== jadwal.userId) return res.status(403).json({ msg: "Akses terlarang" });
-      await JadwalInformatikaModel.destroy({
+      await JadwalModel.destroy({
         where: {
           [Op.and]: [{ id: jadwal.id }, { userId: req.userId }]
         }
