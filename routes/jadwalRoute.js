@@ -1,87 +1,73 @@
 import express from "express";
-import { getJadwalTif, searchJadwalTI, getJadwalTifById, createJadwalTif, updateJadwalTif, deleteJadwalTif } from "../controllers/JadwalController.js";
-import { getJadwalTin, getJadwalTinById, createJadwalTin, updateJadwalTin, deleteJadwalTin } from "../controllers/JadwalIndustriController.js";
-import { getJadwalTL, getJadwalTLById, createJadwalTL, updateJadwalTL, deleteJadwalTL } from "../controllers/JadwalLingkunganController.js";
+import {
+  getJadwalTif,
+  searchJadwalTI,
+  getJadwalTifById,
+  createJadwalTif,
+  updateJadwalTif,
+  deleteJadwalTif,
+} from "../controllers/JadwalController.js";
+import {
+  getAsisten,
+  getAsistenById,
+  createAsisten,
+  updateAsisten,
+  deleteAsisten,
+} from "../controllers/AsistenController.js";
+import {
+  getDosen,
+  getDosenById,
+  createDosen,
+  updateDosen,
+  deleteDosen,
+} from "../controllers/DosenController.js";
+import {
+  getJam,
+  getJamById,
+  createJam,
+  updateJam,
+  deleteJam,
+} from "../controllers/JamController.js";
+import {
+  getKelas,
+  getKelasById,
+  createKelas,
+  updateKelas,
+  deleteKelas,
+} from "../controllers/KelasController.js";
 import { verifyUser, adminOnly } from "../middleware/authUser.js";
 
-const router = express.Router()
+const router = express.Router();
 
-//TI
-// CREATE - POST
-router.post('/jadwal', verifyUser, createJadwalTif)
+router.post("/jadwal", verifyUser, createJadwalTif);
+router.get("/jadwal", searchJadwalTI);
+router.get("/jadwal", getJadwalTif);
+router.get("/jadwal/:id", verifyUser, getJadwalTifById);
+router.patch("/jadwal/:id", verifyUser, updateJadwalTif);
+router.delete("/jadwal/:id", verifyUser, deleteJadwalTif);
 
-// SORTIR / SEARCH
-router.get('/jadwal', searchJadwalTI)
+router.post("/kelas", verifyUser, createKelas);
+router.get("/kelas", getKelas);
+router.get("/kelas/:id", verifyUser, getKelasById);
+router.patch("/kelas/:id", verifyUser, updateKelas);
+router.delete("/kelas/:id", verifyUser, deleteKelas);
 
-// READ - GET with auth
-// router.get('/jadwal', verifyUser, getJadwalTif)
+router.post("/dosen", verifyUser, createDosen);
+router.get("/dosen", getDosen);
+router.get("/dosen/:id", verifyUser, getDosenById);
+router.patch("/dosen/:id", verifyUser, updateDosen);
+router.delete("/dosen/:id", verifyUser, deleteDosen);
 
-// READ - GET without Auth
-router.get('/jadwal', getJadwalTif)
+router.post("/asisten", verifyUser, createAsisten);
+router.get("/asisten", getAsisten);
+router.get("/asisten/:id", verifyUser, getAsistenById);
+router.patch("/asisten/:id", verifyUser, updateAsisten);
+router.delete("/asisten/:id", verifyUser, deleteAsisten);
 
-// READ - GET by id
-router.get('/jadwal/:id', verifyUser, getJadwalTifById)
-
-// UPDATE - PATCH
-router.patch('/jadwal/:id', verifyUser, updateJadwalTif)
-
-// DELETE
-router.delete('/jadwal/:id', verifyUser, deleteJadwalTif)
-
-//TIN
-// CREATE - POST
-router.post('/jadwal/tin', verifyUser, createJadwalTin)
-
-// READ - GET with auth
-// router.get('/jadwal', verifyUser, getJadwal)
-
-// READ - GET without Auth
-router.get('/jadwal/tin', getJadwalTin)
-
-// READ - GET by id
-router.get('/jadwal/tin/:id', verifyUser, getJadwalTinById)
-
-// UPDATE - PATCH
-router.patch('/jadwal/tin/:id', verifyUser, updateJadwalTin)
-
-// DELETE
-router.delete('/jadwal/tin/:id', verifyUser, deleteJadwalTin)
-
-//TL
-// CREATE - POST
-router.post('/jadwal/tl', verifyUser, createJadwalTL)
-
-// READ - GET with auth
-// router.get('/jadwal', verifyUser, getJadwal)
-
-// READ - GET without Auth
-router.get('/jadwal/tl', getJadwalTL)
-
-// READ - GET by id
-router.get('/jadwal/tl/:id', verifyUser, getJadwalTLById)
-
-// UPDATE - PATCH
-router.patch('/jadwal/tl/:id', verifyUser, updateJadwalTL)
-
-// DELETE
-router.delete('/jadwal/tl/:id', verifyUser, deleteJadwalTL)
+router.post("/jam", verifyUser, createJam);
+router.get("/jam", getJam);
+router.get("/jam/:id", verifyUser, getJamById);
+router.patch("/jam/:id", verifyUser, updateJam);
+router.delete("/jam/:id", verifyUser, deleteJam);
 
 export default router;
-
-// import {
-//     getJadwal,
-//     getJadwalTifById,
-//     createJadwalTif,
-//     updateJadwalTif,
-//     deleteJadwalTif
-// } from "../controllers/JadwalController.js";
-
-// const router = express.Router();
-
-// router.get('/jadwal', getJadwal);
-// router.get('/jadwal/:id', getJadwalTifById);
-// router.post('/jadwal', createJadwalTif);
-// router.patch('/jadwal/:id', updateJadwalTif);
-// router.delete('/jadwal/:id', deleteJadwalTif);
-
-// export default router;

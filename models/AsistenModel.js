@@ -3,8 +3,8 @@ import db from "../config/Database.js";
 import UserModel from "./UserModel.js";
 
 const { DataTypes } = Sequelize;
-const KelasModel = db.define(
-  "kelas",
+const AsistenModel = db.define(
+  "asisten",
   {
     uuid: {
       type: DataTypes.STRING,
@@ -14,13 +14,7 @@ const KelasModel = db.define(
         notEmpty: true,
       },
     },
-    programStudi: {
-      type: DataTypes.STRING,
-    },
-    angkatan: {
-      type: DataTypes.STRING,
-    },
-    kelas: {
+    asisten: {
       type: DataTypes.STRING,
     },
   },
@@ -28,7 +22,7 @@ const KelasModel = db.define(
     freezeTableName: true,
   }
 );
-UserModel.hasMany(KelasModel);
-KelasModel.belongsTo(UserModel, { foreignKey: "userId" });
 
-export default KelasModel;
+UserModel.hasMany(AsistenModel);
+AsistenModel.belongsTo(UserModel, { foreignKey: "userId" });
+export default AsistenModel;
