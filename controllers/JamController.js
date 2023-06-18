@@ -1,8 +1,8 @@
-import JamModel from "../models/JamModel.js";
-import UserModel from "../models/UserModel.js";
-import { Op } from "sequelize";
+const JamModel = require("../models/JamModel");
+const UserModel = require("../models/UserModel");
+const { Op } = require("sequelize");
 
-export const getJam = async (req, res) => {
+exports.getJam = async (req, res) => {
   try {
     const response = await JamModel.findAll({
       attributes: ["uuid", "jam"],
@@ -19,18 +19,18 @@ export const getJam = async (req, res) => {
   }
 };
 
-export const getJamById = async (req, res) => {
+exports.getJamById = async (req, res) => {
   try {
-    const dsn = await JamModel.findOne({
+    const jm = await JamModel.findOne({
       where: {
         uuid: req.params.id,
       },
     });
-    if (!dsn) return res.status(404).json({ msg: "Data tidak ditemukan" });
+    if (!jm) return res.status(404).json({ msg: "Data tidak ditemukan" });
     const response = await JamModel.findOne({
       attributes: ["uuid", "jam"],
       where: {
-        id: dsn.id,
+        id: jm.id,
       },
       include: [
         {
@@ -45,7 +45,7 @@ export const getJamById = async (req, res) => {
   }
 };
 
-export const createJam = async (req, res) => {
+exports.createJam = async (req, res) => {
   const { jam } = req.body;
   try {
     await JamModel.create({
@@ -58,14 +58,14 @@ export const createJam = async (req, res) => {
   }
 };
 
-export const updateJam = async (req, res) => {
+exports.updateJam = async (req, res) => {
   try {
-    const dsn = await JamModel.findOne({
+    const jm = await JamModel.findOne({
       where: {
         uuid: req.params.id,
       },
     });
-    if (!dsn) return res.status(404).json({ msg: "Data tidak ditemukan" });
+    if (!jm) return res.status(404).json({ msg: "Data tidak ditemukan" });
     const { jam } = req.body;
     await JamModel.update(
       {
@@ -73,7 +73,7 @@ export const updateJam = async (req, res) => {
       },
       {
         where: {
-          id: dsn.id,
+          id: jm.id,
         },
       }
     );
@@ -83,31 +83,31 @@ export const updateJam = async (req, res) => {
   }
 };
 
-export const deleteJam = async (req, res) => {
+exports.deleteJam = async (req, res) => {
   try {
-    const dsn = await JamModel.findOne({
+    const jm = await JamModel.findOne({
       where: {
         uuid: req.params.id,
       },
     });
-    if (!dsn) return res.status(404).json({ msg: "Data tidak ditemukan" });
+    if (!jm) return res.status(404).json({ msg: "Data tidak ditemukan" });
     const { jam } = req.body;
     if (req.role === "admin") {
       await JamModel.destroy({
         where: {
-          id: dsn.id,
+          id: jm.id,
         },
       });
     } else {
-      if (req.userId !== dsn.userId)
+      if (req.userId !== jm.userId)
         return res.status(403).json({ msg: "Akses terlarang" });
       await JamModel.destroy({
         where: {
-          [Op.and]: [{ id: dsn.id }, { userId: req.userId }],
+          [Op.and]: [{ id: jm.id }, { userId: req.userId }],
         },
       });
     }
-    res.status(200).json({ msg: "Hapus dsn berhasil!" });
+    res.status(200).json({ msg: "Hapus jm berhasil!" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }

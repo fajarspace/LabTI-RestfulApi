@@ -1,19 +1,19 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
-import session from "express-session";
-import SequelizeStore from "connect-session-sequelize";
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 // import AsistenModel from "./models/AsistenModel.js";
 // import DosenModel from "./models/DosenModel.js";
 // import JamModel from "./models/JamModel.js";
 // import KelasModel from "./models/KelasModel.js";
 
-import db from "./config/Database.js";
-import authRoute from "./routes/authRoute.js";
-import jadwalRoute from "./routes/jadwalRoute.js";
-import userRoute from "./routes/userRoute.js";
+const db = require("./config/Database.js");
+const authRoute = require("./routes/authRoute.js");
+const jadwalRoute = require("./routes/jadwalRoute.js");
+const userRoute = require("./routes/userRoute.js");
 
 dotenv.config();
 const app = express();
@@ -29,8 +29,7 @@ const app = express();
 // } catch (error) {
 //   console.error(error);
 // }
-const sessionStore = SequelizeStore(session.Store);
-const store = new sessionStore({
+const sessionStore = new SequelizeStore({
   db: db,
 });
 app.set("trust proxy", 1);
@@ -39,13 +38,13 @@ app.use(
     secret: process.env.SESS_SECRET,
     resave: false,
     saveUninitialized: true,
-    store: store,
+    store: sessionStore,
     proxy: true, // Required for Heroku & Digital Ocean (regarding X-Forwarded-For)
     name: "MyCoolWebAppCookieName", // This needs to be unique per-host.
     cookie: {
       secure: "auto", // required for cookies to work on AUTO
-      httpOnly: false,
-      sameSite: "none",
+      // httpOnly: false,
+      // sameSite: "none",
     },
   })
 );

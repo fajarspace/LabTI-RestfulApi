@@ -1,7 +1,7 @@
-import UserModel from "../models/UserModel.js";
-import argon2 from "argon2";
+const UserModel = require("../models/UserModel");
+const argon2 = require("argon2");
 
-export const getUser = async (req, res) => {
+exports.getUser = async (req, res) => {
   try {
     const response = await UserModel.findAll({
       attributes: ['uuid', 'nama', 'email', 'role'] // tampilkan yang perlu saja
@@ -10,8 +10,9 @@ export const getUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
-}
-export const getUserById = async (req, res) => {
+};
+
+exports.getUserById = async (req, res) => {
   try {
     const response = await UserModel.findOne({
       attributes: ['uuid', 'nama', 'email', 'role'], // tampilkan yang perlu saja
@@ -23,9 +24,9 @@ export const getUserById = async (req, res) => {
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
-}
+};
 
-export const createUser = async (req, res) => {
+exports.createUser = async (req, res) => {
   const { nama, email, password, konfirmPassword, role } = req.body;
   if (password !== konfirmPassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok" });
   const hashPassword = await argon2.hash(password);
@@ -40,9 +41,9 @@ export const createUser = async (req, res) => {
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
-}
+};
 
-export const updateUser = async (req, res) => {
+exports.updateUser = async (req, res) => {
   const user = await UserModel.findOne({
     where: {
       uuid: req.params.id
@@ -52,29 +53,32 @@ export const updateUser = async (req, res) => {
   const { nama, email, password, konfirmPassword, role } = req.body;
   let hashPassword;
   if (password === "" || password === null) {
-    hashPassword = user.password
+    hashPassword = user.password;
   } else {
     hashPassword = await argon2.hash(password);
   }
   if (password !== konfirmPassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok" });
   try {
-    await UserModel.update({
-      nama: nama,
-      email: email,
-      password: hashPassword,
-      role: role
-    }, {
-      where: {
-        id: user.id
+    await UserModel.update(
+      {
+        nama: nama,
+        email: email,
+        password: hashPassword,
+        role: role
+      },
+      {
+        where: {
+          id: user.id
+        }
       }
-    });
+    );
     res.status(200).json({ msg: "User Updated" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
-}
+};
 
-export const deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   const user = await UserModel.findOne({
     where: {
       uuid: req.params.id
@@ -91,4 +95,4 @@ export const deleteUser = async (req, res) => {
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
-}
+};

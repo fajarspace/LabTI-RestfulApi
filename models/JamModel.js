@@ -1,8 +1,7 @@
-import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
-import UserModel from "./UserModel.js";
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../config/Database.js");
+const UserModel = require("./UserModel.js");
 
-const { DataTypes } = Sequelize;
 const JamModel = db.define(
   "jam",
   {
@@ -22,7 +21,8 @@ const JamModel = db.define(
     freezeTableName: true,
   }
 );
+
 UserModel.hasMany(JamModel);
 JamModel.belongsTo(UserModel, { foreignKey: "userId" });
 
-export default JamModel;
+module.exports = JamModel;

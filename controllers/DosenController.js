@@ -1,8 +1,8 @@
-import DosenModel from "../models/DosenModel.js";
-import UserModel from "../models/UserModel.js";
-import { Op } from "sequelize";
+const DosenModel = require("../models/DosenModel.js");
+const UserModel = require("../models/UserModel.js");
+const { Op } = require("sequelize");
 
-export const getDosen = async (req, res) => {
+exports.getDosen = async (req, res) => {
   try {
     const response = await DosenModel.findAll({
       attributes: ["uuid", "dosen"],
@@ -19,7 +19,7 @@ export const getDosen = async (req, res) => {
   }
 };
 
-export const getDosenById = async (req, res) => {
+exports.getDosenById = async (req, res) => {
   try {
     const dsn = await DosenModel.findOne({
       where: {
@@ -45,7 +45,7 @@ export const getDosenById = async (req, res) => {
   }
 };
 
-export const createDosen = async (req, res) => {
+exports.createDosen = async (req, res) => {
   const { dosen } = req.body;
   try {
     await DosenModel.create({
@@ -58,7 +58,7 @@ export const createDosen = async (req, res) => {
   }
 };
 
-export const updateDosen = async (req, res) => {
+exports.updateDosen = async (req, res) => {
   try {
     const dsn = await DosenModel.findOne({
       where: {
@@ -83,7 +83,7 @@ export const updateDosen = async (req, res) => {
   }
 };
 
-export const deleteDosen = async (req, res) => {
+exports.deleteDosen = async (req, res) => {
   try {
     const dsn = await DosenModel.findOne({
       where: {

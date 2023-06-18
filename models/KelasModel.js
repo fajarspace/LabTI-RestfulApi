@@ -1,8 +1,7 @@
-import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
-import UserModel from "./UserModel.js";
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../config/Database.js");
+const UserModel = require("./UserModel.js");
 
-const { DataTypes } = Sequelize;
 const KelasModel = db.define(
   "kelas",
   {
@@ -28,7 +27,8 @@ const KelasModel = db.define(
     freezeTableName: true,
   }
 );
+
 UserModel.hasMany(KelasModel);
 KelasModel.belongsTo(UserModel, { foreignKey: "userId" });
 
-export default KelasModel;
+module.exports = KelasModel;

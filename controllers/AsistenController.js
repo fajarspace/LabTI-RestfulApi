@@ -1,8 +1,8 @@
-import AsistenModel from "../models/AsistenModel.js";
-import UserModel from "../models/UserModel.js";
-import { Op } from "sequelize";
+const AsistenModel = require("../models/AsistenModel.js");
+const UserModel = require("../models/UserModel.js");
+const { Op } = require("sequelize");
 
-export const getAsisten = async (req, res) => {
+exports.getAsisten = async (req, res) => {
   try {
     const response = await AsistenModel.findAll({
       attributes: ["uuid", "asisten"],
@@ -19,7 +19,7 @@ export const getAsisten = async (req, res) => {
   }
 };
 
-export const getAsistenById = async (req, res) => {
+exports.getAsistenById = async (req, res) => {
   try {
     const astn = await AsistenModel.findOne({
       where: {
@@ -45,7 +45,7 @@ export const getAsistenById = async (req, res) => {
   }
 };
 
-export const createAsisten = async (req, res) => {
+exports.createAsisten = async (req, res) => {
   const { asisten } = req.body;
   try {
     await AsistenModel.create({
@@ -58,7 +58,7 @@ export const createAsisten = async (req, res) => {
   }
 };
 
-export const updateAsisten = async (req, res) => {
+exports.updateAsisten = async (req, res) => {
   try {
     const astn = await AsistenModel.findOne({
       where: {
@@ -83,7 +83,7 @@ export const updateAsisten = async (req, res) => {
   }
 };
 
-export const deleteAsisten = async (req, res) => {
+exports.deleteAsisten = async (req, res) => {
   try {
     const astn = await AsistenModel.findOne({
       where: {

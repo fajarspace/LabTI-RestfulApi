@@ -1,50 +1,50 @@
-import express from "express";
-import {
-  getJadwalTif,
-  searchJadwalTI,
-  getJadwalTifById,
-  createJadwalTif,
-  updateJadwalTif,
-  deleteJadwalTif,
-} from "../controllers/JadwalController.js";
-import {
+const express = require("express");
+const {
+  getJadwal,
+  searchJadwal,
+  getJadwalById,
+  createJadwal,
+  updateJadwal,
+  deleteJadwal,
+} = require("../controllers/JadwalController.js");
+const {
   getAsisten,
   getAsistenById,
   createAsisten,
   updateAsisten,
   deleteAsisten,
-} from "../controllers/AsistenController.js";
-import {
+} = require("../controllers/AsistenController.js");
+const {
   getDosen,
   getDosenById,
   createDosen,
   updateDosen,
   deleteDosen,
-} from "../controllers/DosenController.js";
-import {
+} = require("../controllers/DosenController.js");
+const {
   getJam,
   getJamById,
   createJam,
   updateJam,
   deleteJam,
-} from "../controllers/JamController.js";
-import {
+} = require("../controllers/JamController.js");
+const {
   getKelas,
   getKelasById,
   createKelas,
   updateKelas,
   deleteKelas,
-} from "../controllers/KelasController.js";
-import { verifyUser, adminOnly } from "../middleware/authUser.js";
+} = require("../controllers/KelasController.js");
+const { verifyUser, adminOnly } = require("../middleware/authUser.js");
 
 const router = express.Router();
 
-router.post("/jadwal", verifyUser, createJadwalTif);
-router.get("/jadwal", searchJadwalTI);
-router.get("/jadwal", getJadwalTif);
-router.get("/jadwal/:id", verifyUser, getJadwalTifById);
-router.patch("/jadwal/:id", verifyUser, updateJadwalTif);
-router.delete("/jadwal/:id", verifyUser, deleteJadwalTif);
+router.post("/jadwal", verifyUser, createJadwal);
+router.get("/jadwal", searchJadwal);
+router.get("/jadwal", getJadwal);
+router.get("/jadwal/:id", verifyUser, getJadwalById);
+router.patch("/jadwal/:id", verifyUser, updateJadwal);
+router.delete("/jadwal/:id", verifyUser, deleteJadwal);
 
 router.post("/kelas", verifyUser, createKelas);
 router.get("/kelas", getKelas);
@@ -70,4 +70,4 @@ router.get("/jam/:id", verifyUser, getJamById);
 router.patch("/jam/:id", verifyUser, updateJam);
 router.delete("/jam/:id", verifyUser, deleteJam);
 
-export default router;
+module.exports = router;

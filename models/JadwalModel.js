@@ -1,8 +1,6 @@
-import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
-import UserModel from "./UserModel.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../config/Database.js");
+const UserModel = require("./UserModel.js");
 
 const JadwalModel = db.define('jadwal', {
   uuid: {
@@ -49,8 +47,10 @@ const JadwalModel = db.define('jadwal', {
 
 UserModel.hasMany(JadwalModel);
 JadwalModel.belongsTo(UserModel, { foreignKey: 'userId' })
-// (async()=>{
+
+// Uncomment the following lines if you want to sync the database
+// ;(async()=>{
 //     await db.sync();
 // })();
-export default JadwalModel;
 
+module.exports = JadwalModel;

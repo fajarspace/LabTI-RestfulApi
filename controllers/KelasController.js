@@ -1,8 +1,8 @@
-import KelasModel from "../models/KelasModel.js";
-import UserModel from "../models/UserModel.js";
-import { Op } from "sequelize";
+const KelasModel = require("../models/KelasModel");
+const UserModel = require("../models/UserModel");
+const { Op } = require("sequelize");
 
-export const getKelas = async (req, res) => {
+exports.getKelas = async (req, res) => {
   try {
     const response = await KelasModel.findAll({
       attributes: ["uuid", "kelas"],
@@ -19,7 +19,7 @@ export const getKelas = async (req, res) => {
   }
 };
 
-export const getKelasById = async (req, res) => {
+exports.getKelasById = async (req, res) => {
   try {
     const kls = await KelasModel.findOne({
       where: {
@@ -45,7 +45,7 @@ export const getKelasById = async (req, res) => {
   }
 };
 
-export const createKelas = async (req, res) => {
+exports.createKelas = async (req, res) => {
   const { kelas } = req.body;
   try {
     await KelasModel.create({
@@ -58,7 +58,7 @@ export const createKelas = async (req, res) => {
   }
 };
 
-export const updateKelas = async (req, res) => {
+exports.updateKelas = async (req, res) => {
   try {
     const kls = await KelasModel.findOne({
       where: {
@@ -83,7 +83,7 @@ export const updateKelas = async (req, res) => {
   }
 };
 
-export const deleteKelas = async (req, res) => {
+exports.deleteKelas = async (req, res) => {
   try {
     const kls = await KelasModel.findOne({
       where: {
