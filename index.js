@@ -43,8 +43,8 @@ app.use(
     name: "MyCoolWebAppCookieName", // This needs to be unique per-host.
     cookie: {
       secure: "auto", // required for cookies to work on AUTO
-      // httpOnly: false,
-      // sameSite: "none",
+      httpOnly: false,
+      sameSite: "none",
     },
   })
 );
