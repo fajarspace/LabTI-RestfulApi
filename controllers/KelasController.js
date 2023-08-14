@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 exports.getKelas = async (req, res) => {
   try {
     const response = await KelasModel.findAll({
-      attributes: ["uuid", "kelas"],
+      attributes: ["uuid", "programStudi", "kelas"],
       include: [
         {
           model: UserModel,
@@ -28,7 +28,7 @@ exports.getKelasById = async (req, res) => {
     });
     if (!kls) return res.status(404).json({ msg: "Data tidak ditemukan" });
     const response = await KelasModel.findOne({
-      attributes: ["uuid", "kelas"],
+      attributes: ["uuid", "programStudi", "kelas"],
       where: {
         id: kls.id,
       },
@@ -46,9 +46,10 @@ exports.getKelasById = async (req, res) => {
 };
 
 exports.createKelas = async (req, res) => {
-  const { kelas } = req.body;
+  const { programStudi, kelas } = req.body;
   try {
     await KelasModel.create({
+      programStudi: programStudi,
       kelas: kelas,
       userId: req.userId,
     });
@@ -66,9 +67,11 @@ exports.updateKelas = async (req, res) => {
       },
     });
     if (!kls) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const { kelas } = req.body;
+    const { programStudi, kelas } = req.body;
     await KelasModel.update(
       {
+        programStudi,
+
         kelas,
       },
       {
@@ -91,7 +94,7 @@ exports.deleteKelas = async (req, res) => {
       },
     });
     if (!kls) return res.status(404).json({ msg: "Data tidak ditemukan" });
-    const { kelas } = req.body;
+    const { programStudi, kelas } = req.body;
     if (req.role === "admin") {
       await KelasModel.destroy({
         where: {

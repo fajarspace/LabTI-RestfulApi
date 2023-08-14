@@ -4,7 +4,7 @@ const {
   getUserById,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
 } = require("../controllers/UserController.js");
 const { verifyUser, adminOnly } = require("../middleware/authUser.js");
 

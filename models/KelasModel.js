@@ -15,12 +15,11 @@ const KelasModel = db.define(
     },
     programStudi: {
       type: DataTypes.STRING,
-    },
-    angkatan: {
-      type: DataTypes.STRING,
+      allowNull: false,
     },
     kelas: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

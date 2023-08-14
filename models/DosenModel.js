@@ -15,6 +15,7 @@ const DosenModel = db.define(
     },
     dosen: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

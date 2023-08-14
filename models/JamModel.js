@@ -15,6 +15,7 @@ const JamModel = db.define(
     },
     jam: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

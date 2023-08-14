@@ -2,8 +2,8 @@ const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../config/Database.js");
 const UserModel = require("./UserModel.js");
 
-const AsistenModel = db.define(
-  "asisten",
+const RuangModel = db.define(
+  "ruang",
   {
     uuid: {
       type: DataTypes.STRING,
@@ -13,7 +13,7 @@ const AsistenModel = db.define(
         notEmpty: true,
       },
     },
-    asisten: {
+    ruang: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -23,6 +23,7 @@ const AsistenModel = db.define(
   }
 );
 
-UserModel.hasMany(AsistenModel);
-AsistenModel.belongsTo(UserModel, { foreignKey: "userId" });
-module.exports = AsistenModel;
+UserModel.hasMany(RuangModel);
+RuangModel.belongsTo(UserModel, { foreignKey: "userId" });
+
+module.exports = RuangModel;

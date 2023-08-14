@@ -9,6 +9,8 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 // import DosenModel from "./models/DosenModel.js";
 // import JamModel from "./models/JamModel.js";
 // import KelasModel from "./models/KelasModel.js";
+// const RuangModel = require("./models/RuangModel");
+// const PraktikumModel = require("./models/PraktikumModel");
 
 const db = require("./config/Database.js");
 const authRoute = require("./routes/authRoute.js");
@@ -22,13 +24,18 @@ const app = express();
 //   await db.sync();
 // })();
 
-// try {
-//   await db.authenticate();
-//   console.log("Database Connected...");
-//   await KelasModel.sync();
-// } catch (error) {
-//   console.error(error);
-// }
+// db.authenticate()
+//   .then(() => {
+//     console.log("Database Connected...");
+//     return PraktikumModel.sync();
+//   })
+//   .then(() => {
+//     console.log("DB synchronized...");
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
+
 const sessionStore = new SequelizeStore({
   db: db,
 });
@@ -39,12 +46,12 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: sessionStore,
-    proxy: true, // Required for Heroku & Digital Ocean (regarding X-Forwarded-For)
-    name: "MyCoolWebAppCookieName", // This needs to be unique per-host.
+    proxy: true,
+    name: "MyCoolWebAppCookieName",
     cookie: {
       secure: "auto", // required for cookies to work on AUTO
-      httpOnly: false,
-      sameSite: "none",
+      // httpOnly: false,
+      // sameSite: "none",
     },
   })
 );
@@ -58,12 +65,19 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
-// Route
+// Route - Welcome Page
+app.get("/", (req, res) => {
+  res.send(
+    "<h1>Konek sukses!</h1><p>Click <a href='https://fajarspace.gitbook.io/praktikum-api/'>API Documentation</a></p>"
+  );
+});
+
+// Route - Other Routes
 app.use(authRoute);
 app.use(userRoute);
 app.use(jadwalRoute);
 
-// store.sync(); // add field session
+// ... (rest of the code remains the same)
 
 app.listen(process.env.PORT, () =>
   console.log(`Server berjalan di port '${process.env.PORT}'`)

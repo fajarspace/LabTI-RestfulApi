@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getJadwal,
   searchJadwal,
+  searchDosen,
   getJadwalById,
   createJadwal,
   updateJadwal,
@@ -35,12 +36,27 @@ const {
   updateKelas,
   deleteKelas,
 } = require("../controllers/KelasController.js");
+const {
+  getRuang,
+  getRuangById,
+  createRuang,
+  updateRuang,
+  deleteRuang,
+} = require("../controllers/RuangController.js");
+const {
+  getPraktikum,
+  getPraktikumById,
+  createPraktikum,
+  updatePraktikum,
+  deletePraktikum,
+} = require("../controllers/PraktikumController.js");
 const { verifyUser, adminOnly } = require("../middleware/authUser.js");
 
 const router = express.Router();
 
 router.post("/jadwal", verifyUser, createJadwal);
-router.get("/jadwal", searchJadwal);
+router.get("/jadwal/search", searchJadwal);
+router.get("/jadwal/search/dosen", searchDosen);
 router.get("/jadwal", getJadwal);
 router.get("/jadwal/:id", verifyUser, getJadwalById);
 router.patch("/jadwal/:id", verifyUser, updateJadwal);
@@ -69,5 +85,17 @@ router.get("/jam", getJam);
 router.get("/jam/:id", verifyUser, getJamById);
 router.patch("/jam/:id", verifyUser, updateJam);
 router.delete("/jam/:id", verifyUser, deleteJam);
+
+router.post("/ruang", verifyUser, createRuang);
+router.get("/ruang", getRuang);
+router.get("/ruang/:id", verifyUser, getRuangById);
+router.patch("/ruang/:id", verifyUser, updateRuang);
+router.delete("/ruang/:id", verifyUser, deleteRuang);
+
+router.post("/praktikum", verifyUser, createPraktikum);
+router.get("/praktikum", getPraktikum);
+router.get("/praktikum/:id", verifyUser, getPraktikumById);
+router.patch("/praktikum/:id", verifyUser, updatePraktikum);
+router.delete("/praktikum/:id", verifyUser, deletePraktikum);
 
 module.exports = router;
